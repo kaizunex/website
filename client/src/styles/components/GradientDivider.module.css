@@ -1,0 +1,11 @@
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border),
+    var(--primary),
+    var(--border),
+    transparent
+  );
+}

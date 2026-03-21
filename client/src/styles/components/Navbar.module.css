@@ -1,0 +1,210 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  background: rgba(15, 15, 26, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(45, 45, 74, 0.5);
+  transition: background 0.3s;
+}
+
+.navbar.scrolled {
+  background: rgba(15, 15, 26, 0.95);
+}
+
+/* ── Logo ─────────────────────────────────────────── */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logoMark {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.logoMarkInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.logoAccent {
+  color: var(--primary-light);
+}
+
+/* ── Nav links ────────────────────────────────────── */
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navLink {
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+}
+
+/* ── CTA button ───────────────────────────────────── */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+.cta:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ── Hamburger ────────────────────────────────────── */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile nav ───────────────────────────────────── */
+
+.mobileNav {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: rgba(15, 15, 26, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(45, 45, 74, 0.5);
+  padding: 24px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.mobileNav.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobileNavLink {
+  font-size: 16px;
+  color: var(--text-secondary);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(45, 45, 74, 0.3);
+  transition: color 0.2s;
+  text-decoration: none;
+  display: block;
+}
+
+.mobileNavLink:hover {
+  color: var(--text-primary);
+}
+
+.mobileCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  text-decoration: none;
+}
+
+/* ── Responsive ───────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .navLinks {
+    display: none;
+  }
+
+  .cta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

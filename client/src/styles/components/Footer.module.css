@@ -1,0 +1,135 @@
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 60px 5% 40px;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 48px;
+}
+
+.brand {
+  min-width: 0;
+}
+
+.brand p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 16px;
+  max-width: 280px;
+}
+
+.col h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.col a {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.col a:hover {
+  color: var(--text-primary);
+}
+
+.bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  gap: 16px;
+}
+
+.bottom p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logoMark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.logoMark::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.logoMark svg {
+  position: relative;
+  z-index: 1;
+}
+
+.logoText {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.logoText span {
+  color: var(--primary-light);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

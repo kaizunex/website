@@ -1,0 +1,128 @@
+.section {
+  background: var(--bg);
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 5%;
+  position: relative;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 20% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.sectionTitle {
+  max-width: 100%;
+  font-size: clamp(36px, 5.5vw, 72px);
+  margin-bottom: 28px;
+}
+
+.sectionDesc {
+  max-width: 680px;
+  margin: 0 auto 60px;
+  font-size: 19px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.pill.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pill:hover {
+  color: var(--text-primary);
+  border-color: var(--primary);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.quote {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.quote.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  font-family: 'Syne', sans-serif;
+  font-size: 160px;
+  font-weight: 800;
+  color: rgba(139, 92, 246, 0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.quoteText {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.quoteAttribution {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
