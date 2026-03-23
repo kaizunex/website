@@ -1,16 +1,27 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/components/Navbar.module.css'
 
-const NAV_LINKS = [
+const HOME_NAV_LINKS = [
+  { label: 'Nexus View', href: '#hero' },
+  { label: 'Three Bridges', href: '#use-cases' },
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Use Cases', href: '#use-cases' },
-  { label: 'Principles', href: '#principles' },
   { label: 'Vision', href: '#vision' },
 ]
 
-export default function Navbar() {
+const PRODUCTS_NAV_LINKS = [
+  { label: 'Kaicards', href: '#kaicards' },
+  { label: 'Kairef', href: '#kairef' },
+  { label: 'Kaitree', href: '#kaitree' },
+]
+
+interface NavbarProps {
+  isProductsPage?: boolean
+}
+
+export default function Navbar({ isProductsPage = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const links = isProductsPage ? PRODUCTS_NAV_LINKS : HOME_NAV_LINKS
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -24,8 +35,9 @@ export default function Navbar() {
     <>
       <nav
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
+        aria-label="Primary navigation"
       >
-        <a href="#" className={styles.logo}>
+        <a href="/" className={styles.logo}>
           <div className={styles.logoMark}>
             <div className={styles.logoMarkInner}>
               <svg
@@ -50,21 +62,29 @@ export default function Navbar() {
         </a>
 
         <div className={styles.navLinks}>
-          {NAV_LINKS.map((link) => (
+          <a href="/" className={styles.navLink}>
+            Home
+          </a>
+          <a href="/products" className={styles.navLink}>
+            Products
+          </a>
+          {links.map((link) => (
             <a key={link.href} href={link.href} className={styles.navLink}>
               {link.label}
             </a>
           ))}
         </div>
 
-        <a href="#waitlist" className={styles.cta}>
-          Join Waitlist →
+        <a href={isProductsPage ? '/#waitlist' : '#waitlist'} className={styles.cta}>
+          Connect Now →
         </a>
 
         <button
           className={`${styles.hamburger} ${mobileOpen ? styles.active : ''}`}
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle navigation menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-primary-nav"
         >
           <span />
           <span />
@@ -72,8 +92,17 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <div className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`}>
-        {NAV_LINKS.map((link) => (
+      <div
+        id="mobile-primary-nav"
+        className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`}
+      >
+        <a href="/" className={styles.mobileNavLink} onClick={closeMobile}>
+          Home
+        </a>
+        <a href="/products" className={styles.mobileNavLink} onClick={closeMobile}>
+          Products
+        </a>
+        {links.map((link) => (
           <a
             key={link.href}
             href={link.href}
@@ -84,11 +113,11 @@ export default function Navbar() {
           </a>
         ))}
         <a
-          href="#waitlist"
+          href={isProductsPage ? '/#waitlist' : '#waitlist'}
           className={styles.mobileCta}
           onClick={closeMobile}
         >
-          Join Waitlist →
+          Connect Now →
         </a>
       </div>
     </>

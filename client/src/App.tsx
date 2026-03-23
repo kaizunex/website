@@ -11,11 +11,11 @@ import ContactForm from './components/ContactForm'
 import BlogSection from './components/BlogSection'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
+import ProductsPage from './components/ProductsPage/ProductsPage'
 
-function App() {
+function HomePage() {
   return (
     <>
-      <Navbar />
       <Hero />
       <GradientDivider />
       <HowItWorks />
@@ -32,7 +32,23 @@ function App() {
       <GradientDivider />
       <ContactForm />
       <BlogSection />
-      <Footer />
+    </>
+  )
+}
+
+function App() {
+  const isProductsPage = window.location.pathname === '/products'
+
+  return (
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <Navbar isProductsPage={isProductsPage} />
+      <main id="main-content">
+        {isProductsPage ? <ProductsPage /> : <HomePage />}
+      </main>
+      <Footer isProductsPage={isProductsPage} />
       <Toast />
     </>
   )
