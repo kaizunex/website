@@ -3,12 +3,14 @@ import HeroCanvas from './HeroCanvas'
 import useCounterAnimation from '../../hooks/useCounterAnimation'
 import useScrollAnimation from '../../hooks/useScrollAnimation'
 import { useTrackSection, trackClick } from '../../hooks/useAnalytics'
+import { nexusStats } from '../../data/ecosystem'
 
-const STATS = [
-  { target: 1247, suffix: '+', label: 'Beta Users', duration: 2000 },
-  { target: 3, suffix: '', label: 'Mediums Available', duration: 1200 },
-  { target: 18, suffix: '', label: 'Countries Onboarding', duration: 1600 },
-]
+const STATS = nexusStats.map((stat) => ({
+  target: Number(stat.value),
+  suffix: '',
+  label: stat.label,
+  duration: 1200,
+}))
 
 function StatItem({ target, suffix, label, duration }: (typeof STATS)[number]) {
   const { ref, value } = useCounterAnimation(target, suffix, duration)
@@ -30,31 +32,36 @@ export default function Hero() {
 
       <div className={styles.glowLeft} />
       <div className={styles.glowRight} />
+      <div className={styles.orbTop} />
+      <div className={styles.orbBottom} />
 
       <div className={styles.content}>
         <div className={styles.badge}>
           <span className={styles.badgeDot} />
-          Now in Private Beta — Limited Access
+          Nexus in Private Beta
         </div>
 
         <h1 className={styles.title}>
-          Where Connections Become
-          <br />
-          <span className="gradient-text">Opportunities</span>
+          One Nexus. Three Bridges.
+          <br className={styles.titleBreak} />
+          <span className={`${styles.titleAccent} shimmer-text`}>
+            Infinite Connections
+          </span>
         </h1>
 
         <p className={styles.subtitle}>
-          A marketplace where people connect through trust, access, and shared
-          value. You are the infrastructure.
+          KaizunaNexus is the central hub for your financial, professional, and
+          ancestral capital. We remove middlemen to build direct, high-trust
+          bridges.
         </p>
 
         <div className={styles.actions}>
           <a
             href="#waitlist"
             className={styles.btnPrimary}
-            onClick={() => trackClick('hero_join_waitlist')}
+            onClick={() => trackClick('hero_connect_now')}
           >
-            Join the Waitlist
+            Connect Now
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path
                 d="M3 8h10m0 0L9 4m4 4L9 12"
@@ -65,11 +72,11 @@ export default function Hero() {
               />
             </svg>
           </a>
-          <a href="#how-it-works" className={styles.btnGhost}>
-            See how it works
+          <a href="/products" className={styles.btnGhost}>
+            Explore Products
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path
-                d="M8 3v10m0 0l4-4m-4 4L4 9"
+                d="M3 8h10m0 0L9 4m4 4L9 12"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -84,6 +91,13 @@ export default function Hero() {
             <StatItem key={s.label} {...s} />
           ))}
         </div>
+
+        <a href="#use-cases" className={styles.scrollHint} aria-label="Scroll to three bridges section">
+          <span className={styles.mouseShell}>
+            <span className={styles.mouseWheel} />
+          </span>
+          <span className={styles.scrollLabel}>Three Bridges</span>
+        </a>
       </div>
     </section>
   )

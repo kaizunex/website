@@ -7,6 +7,7 @@ const MOUSE_RADIUS = 80
 const MOUSE_FORCE = 0.15
 const SPEED_CAP = 1.5
 const COLORS = ['#8B5CF6', '#10B981', '#A78BFA']
+const MAX_DPR = 1.6
 
 interface Node {
   x: number
@@ -27,6 +28,7 @@ export default function HeroCanvas() {
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     let w = 0
     let h = 0
@@ -37,11 +39,12 @@ export default function HeroCanvas() {
       const rect = canvas.parentElement!.getBoundingClientRect()
       w = rect.width
       h = rect.height
-      canvas.width = w * devicePixelRatio
-      canvas.height = h * devicePixelRatio
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR)
+      canvas.width = w * dpr
+      canvas.height = h * dpr
       canvas.style.width = `${w}px`
       canvas.style.height = `${h}px`
-      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
     const initNodes = () => {
@@ -65,7 +68,7 @@ export default function HeroCanvas() {
       const rect = canvas.getBoundingClientRect()
       mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
     }
-    canvas.addEventListener('mousemove', onMove)
+    canvas.addEventListener('mousemove', onMove, { passive: true })
 
     const onLeave = () => {
       mouse.current = { x: -9999, y: -9999 }
@@ -140,7 +143,9 @@ export default function HeroCanvas() {
         ctx.fill()
       }
 
-      rafId = requestAnimationFrame(draw)
+      if (!reducedMotion) {
+        rafId = requestAnimationFrame(draw)
+      }
     }
 
     rafId = requestAnimationFrame(draw)

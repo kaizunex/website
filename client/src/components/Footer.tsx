@@ -1,17 +1,17 @@
 import styles from '../styles/components/Footer.module.css'
 
 const PRODUCT_LINKS = [
-  { label: 'How It Works', href: '#' },
-  { label: 'Use Cases', href: '#' },
-  { label: 'Principles', href: '#' },
-  { label: 'Roadmap', href: '#' },
+  { label: 'Kaicards', href: '/products#kaicards' },
+  { label: 'Kairef', href: '/products#kairef' },
+  { label: 'Kaitree', href: '/products#kaitree' },
+  { label: 'Connect Now', href: '/#waitlist' },
 ]
 
 const COMPANY_LINKS = [
-  { label: 'About', href: '#' },
-  { label: 'Blog', href: '#' },
-  { label: 'Careers', href: '#' },
-  { label: 'Press', href: '#' },
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'How It Works', href: '/#how-it-works' },
+  { label: 'Blog', href: '/#blog' },
 ]
 
 const LEGAL_LINKS = [
@@ -68,12 +68,16 @@ function LogoMark() {
   )
 }
 
-export default function Footer() {
+interface FooterProps {
+  isProductsPage?: boolean
+}
+
+export default function Footer({ isProductsPage = false }: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <a href="#" className={styles.logo}>
+          <a href="/" className={styles.logo}>
             <div className={styles.logoMark}>
               <LogoMark />
             </div>
@@ -82,8 +86,13 @@ export default function Footer() {
             </span>
           </a>
           <p>
-            A Connection Marketplace built on trust, privacy, and the infinite
-            potential of human networks. People are the infrastructure.
+            One Nexus. Three Bridges. Infinite connections across financial,
+            professional, and ancestral capital.
+          </p>
+          <p>
+            {isProductsPage
+              ? 'Exploring deep dives for Kaicards, Kairef, and Kaitree.'
+              : 'KaizunaNexus builds direct, high-trust pathways without middlemen.'}
           </p>
         </div>
 
