@@ -2,7 +2,7 @@
 
 .section {
   background: var(--surface);
-  padding: 120px 5%;
+  padding: 92px 5%;
   overflow: hidden;
 }
 
@@ -15,14 +15,14 @@
 
 .header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
 }
 
 .sectionTitle {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 48px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 20px;
 }
@@ -65,7 +65,7 @@
   color: var(--text-secondary);
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .input,
@@ -110,7 +110,7 @@
   border: none;
   border-radius: 12px;
   padding: 14px 32px;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
@@ -151,7 +151,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 80px 5%;
+    padding: 64px 5%;
   }
 
   .sectionTitle {

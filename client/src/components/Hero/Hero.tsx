@@ -38,11 +38,13 @@ export default function Hero() {
       <div className={styles.content}>
         <div className={styles.badge}>
           <span className={styles.badgeDot} />
-          Nexus in Private Beta
+          Redefining Social Connectivity
         </div>
 
         <h1 className={styles.title}>
-          One Nexus. Three Bridges.
+          One Nexus.
+          <br className={styles.titleBreak} />
+          Three Bridges.
           <br className={styles.titleBreak} />
           <span className={`${styles.titleAccent} shimmer-text`}>
             Infinite Connections
@@ -50,9 +52,8 @@ export default function Hero() {
         </h1>
 
         <p className={styles.subtitle}>
-          KaizunaNexus is the central hub for your financial, professional, and
-          ancestral capital. We remove middlemen to build direct, high-trust
-          bridges.
+          Kaizuna is the central hub for your financial, professional, and
+          ancestral capital. We remove middlemen to build direct, high-trust bridges.
         </p>
 
         <div className={styles.actions}>
@@ -72,7 +73,7 @@ export default function Hero() {
               />
             </svg>
           </a>
-          <a href="/products" className={styles.btnGhost}>
+          <a href="#use-cases" className={styles.btnGhost}>
             Explore Products
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path

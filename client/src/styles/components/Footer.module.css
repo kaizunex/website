@@ -26,12 +26,12 @@
 }
 
 .col h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 16px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 
@@ -105,11 +105,11 @@
 }
 
 .logoText {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.028em;
 }
 
 .logoText span {

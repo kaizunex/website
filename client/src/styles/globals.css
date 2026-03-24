@@ -1,18 +1,21 @@
 :root {
-  --font-heading: 'Syne', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, Menlo, monospace;
 
-  --bg: #0b1020;
-  --surface: #111827;
-  --surface-light: #1f2937;
-  --card: #0f172a;
-  --border: #334155;
-  --border-soft: rgba(148, 163, 184, 0.2);
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-light: #f1f5f9;
+  --surface-elevated: rgba(255, 255, 255, 0.88);
+  --card: #ffffff;
+  --border: #cbd5e1;
+  --border-soft: rgba(148, 163, 184, 0.28);
 
   --primary: #8b5cf6;
   --primary-dark: #7c3aed;
   --primary-light: #a78bfa;
+  --accent: #06b6d4;
+  --accent-dark: #0891b2;
   --cyan: #06b6d4;
   --emerald: #10b981;
 
@@ -20,9 +23,9 @@
   --product-kairef: #06b6d4;
   --product-kaitree: #10b981;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
 
   --error: #ef4444;
   --warning: #f59e0b;
@@ -45,15 +48,55 @@
   --radius-lg: 16px;
   --radius-xl: 22px;
 
-  --shadow-sm: 0 10px 24px rgba(2, 6, 23, 0.16);
-  --shadow-md: 0 20px 50px rgba(2, 6, 23, 0.28);
-  --shadow-glow: 0 0 34px rgba(139, 92, 246, 0.28);
+  --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 20px 50px rgba(15, 23, 42, 0.14);
+  --shadow-glow: 0 0 34px rgba(139, 92, 246, 0.24);
 
   --duration-fast: 160ms;
   --duration-base: 260ms;
   --duration-slow: 420ms;
   --ease-standard: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --gradient-1: #7c3aed;
+  --gradient-2: #0891b2;
+  --gradient-3: #0f766e;
+  --shimmer-1: #0f172a;
+  --shimmer-2: #7c3aed;
+  --shimmer-3: #0ea5e9;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b1020;
+  --surface: #111827;
+  --surface-light: #1f2937;
+  --surface-elevated: rgba(15, 23, 42, 0.78);
+  --card: #0f172a;
+  --border: #334155;
+  --border-soft: rgba(148, 163, 184, 0.2);
+
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #a78bfa;
+  --accent: #06b6d4;
+  --accent-dark: #0891b2;
+  --cyan: #06b6d4;
+  --emerald: #10b981;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --shadow-sm: 0 10px 24px rgba(2, 6, 23, 0.16);
+  --shadow-md: 0 20px 50px rgba(2, 6, 23, 0.28);
+  --shadow-glow: 0 0 34px rgba(139, 92, 246, 0.28);
+
+  --gradient-1: #c4b5fd;
+  --gradient-2: #67e8f9;
+  --gradient-3: #6ee7b7;
+  --shimmer-1: #f8fafc;
+  --shimmer-2: #c4b5fd;
+  --shimmer-3: #67e8f9;
 }
 
 *,
@@ -133,7 +176,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.028em;
   line-height: 1.1;
 }
 
@@ -143,21 +186,21 @@ body::before {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }
 
 .gradient-text {
-  background: linear-gradient(130deg, #c4b5fd 0%, #67e8f9 45%, #6ee7b7 100%);
+  background: linear-gradient(130deg, var(--gradient-1) 0%, var(--gradient-2) 45%, var(--gradient-3) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .shimmer-text {
-  background: linear-gradient(100deg, #f8fafc 12%, #c4b5fd 32%, #67e8f9 52%, #f8fafc 72%);
+  background: linear-gradient(100deg, var(--shimmer-1) 12%, var(--shimmer-2) 32%, var(--shimmer-3) 52%, var(--shimmer-1) 72%);
   background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -172,7 +215,7 @@ body::before {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   color: var(--primary-light);
   margin-bottom: var(--space-4);
 }
@@ -187,7 +230,7 @@ body::before {
 }
 
 .glass-card {
-  background: rgba(15, 23, 42, 0.56);
+  background: var(--surface-elevated);
   border: 1px solid var(--border-soft);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);

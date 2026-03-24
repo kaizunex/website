@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KaizunaNexus — One Nexus. Three Bridges.</title>
-  <meta name="description" content="KaizunaNexus is the central hub for financial, professional, and ancestral capital through Kaicards, Kairef, and Kaitree." />
+  <title>Kaizuna — One Nexus. Three Bridges.</title>
+  <meta name="description" content="Kaizuna is the central hub for financial, professional, and ancestral capital through Kaicards, Kairef, and Kaitree." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script type="module" crossorigin src="/assets/index-5z78itaB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DISIiyjU.css">
+  <script type="module" crossorigin src="/assets/index-BQl2Z7UW.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-D9S75wxB.css">
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem('kaizuna-theme')
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light'
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    })()
+  </script>
 </body>
 </html>

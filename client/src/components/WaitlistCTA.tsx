@@ -70,7 +70,7 @@ export default function WaitlistCTA() {
     try {
       await confirmWaitlist(email, code)
       setStep('done')
-      dispatchToast("You're in! Welcome to Kaizuna Nexus.")
+      dispatchToast("You're in! Welcome to Kaizuna.")
     } catch {
       setError('Invalid code. Please try again.')
     } finally {

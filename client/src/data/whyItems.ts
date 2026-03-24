@@ -17,7 +17,7 @@ export const whyItems: WhyItem[] = [
   {
     title: 'Not a gatekeeper',
     description:
-      'Kaizuna Nexus facilitates, never controls. The power stays with the people in the network — always.',
+      'Kaizuna facilitates, never controls. The power stays with the people in the network — always.',
   },
   {
     title: 'A unified layer for human connection',

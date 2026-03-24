@@ -1,6 +1,10 @@
 .section {
-  background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.95));
-  padding: 110px 40px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 96%, transparent),
+    color-mix(in srgb, var(--surface-light) 82%, transparent)
+  );
+  padding: 88px 40px;
   position: relative;
   overflow: hidden;
 }
@@ -29,7 +33,7 @@
 .connectorRail {
   max-width: 1200px;
   margin: 34px auto 0;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .connectorSvg {
@@ -39,8 +43,7 @@
 
 .connectorSvg path {
   fill: none;
-  stroke: url('#not-used');
-  stroke: #67e8f9;
+  stroke: color-mix(in srgb, var(--accent) 80%, white);
   stroke-width: 2;
   stroke-dasharray: 8 10;
   animation: dash 20s linear infinite;
@@ -57,8 +60,8 @@
 .pillarCard {
   position: relative;
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-elevated);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 24px;
@@ -69,7 +72,8 @@
 
 .pillarCard:hover {
   transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
-  border-color: rgba(148, 163, 184, 0.5);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .cardGlow {
@@ -84,21 +88,37 @@
 }
 
 .glowPurple {
-  background: rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.2);
 }
 
 .glowCyan {
-  background: rgba(6, 182, 212, 0.34);
+  background: rgba(6, 182, 212, 0.2);
 }
 
 .glowEmerald {
-  background: rgba(16, 185, 129, 0.34);
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.logoSlot {
+  width: 106px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px dashed var(--border);
+  background: var(--surface-light);
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
 }
 
 .vertical {
   font-size: 0.72rem;
   color: var(--text-muted);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -115,7 +135,7 @@
 
 .oneLiner {
   margin-top: 10px;
-  color: #a5f3fc;
+  color: color-mix(in srgb, var(--accent-dark) 75%, var(--text-primary));
   font-weight: 600;
 }
 
@@ -140,8 +160,8 @@
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #67e8f9;
-  box-shadow: 0 0 10px rgba(103, 232, 249, 0.6);
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 .cardActions {
@@ -152,17 +172,64 @@
 }
 
 .cardLink {
-  font-weight: 600;
-  color: #c4b5fd;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-light);
+  color: var(--text-primary);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.cardLink:hover {
+  transform: translateY(-2px);
+}
+
+.linkKaicards:hover {
+  border-color: color-mix(in srgb, #60a5fa 56%, var(--border));
+  background: color-mix(in srgb, #93c5fd 18%, var(--surface-light));
+  color: #1d4ed8;
+}
+
+.linkKairef:hover {
+  border-color: color-mix(in srgb, #34d399 56%, var(--border));
+  background: color-mix(in srgb, #6ee7b7 18%, var(--surface-light));
+  color: #047857;
+}
+
+.linkKaitree:hover {
+  border-color: color-mix(in srgb, #a78bfa 56%, var(--border));
+  background: color-mix(in srgb, #c4b5fd 20%, var(--surface-light));
+  color: #6d28d9;
+}
+
+:global(:root[data-theme='dark']) .linkKaicards:hover {
+  color: #bfdbfe;
+}
+
+:global(:root[data-theme='dark']) .linkKairef:hover {
+  color: #a7f3d0;
+}
+
+:global(:root[data-theme='dark']) .linkKaitree:hover {
+  color: #ddd6fe;
 }
 
 .connectLink {
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(103, 232, 249, 0.44);
-  background: rgba(8, 47, 73, 0.38);
+  border: 1px solid var(--border);
+  background: var(--surface-light);
   font-size: 0.88rem;
-  color: #cffafe;
+  color: var(--text-secondary);
 }
 
 @keyframes dash {
@@ -173,7 +240,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 80px 20px;
+    padding: 64px 20px;
   }
 
   .pillarGrid {

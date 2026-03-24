@@ -1,32 +1,54 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/components/Navbar.module.css'
+import ThemeToggle from './ThemeToggle'
 
-const HOME_NAV_LINKS = [
-  { label: 'Nexus View', href: '#hero' },
-  { label: 'Three Bridges', href: '#use-cases' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Vision', href: '#vision' },
-]
-
-const PRODUCTS_NAV_LINKS = [
-  { label: 'Kaicards', href: '#kaicards' },
-  { label: 'Kairef', href: '#kairef' },
-  { label: 'Kaitree', href: '#kaitree' },
+const PRODUCT_LINKS = [
+  { label: 'Kaicards', href: '/product/kaicards' },
+  { label: 'Kairef', href: '/product/kairef' },
+  { label: 'Kaitree', href: '/product/kaitree' },
 ]
 
 interface NavbarProps {
-  isProductsPage?: boolean
+  isProductPage?: boolean
+  theme: 'light' | 'dark'
+  onToggleTheme: () => void
 }
 
-export default function Navbar({ isProductsPage = false }: NavbarProps) {
+export default function Navbar({
+  isProductPage = false,
+  theme,
+  onToggleTheme,
+}: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const links = isProductsPage ? PRODUCTS_NAV_LINKS : HOME_NAV_LINKS
+  const [productsOpen, setProductsOpen] = useState(false)
+  const productsMenuRef = useRef<HTMLDivElement | null>(null)
+
+  const inHome = !isProductPage
+  const homeHref = inHome ? '#hero' : '/#hero'
+  const whyHref = inHome ? '#why-kaizuna' : '/#why-kaizuna'
+  const ecosystemHref = inHome ? '#use-cases' : '/#use-cases'
+  const contactHref = inHome ? '#contact' : '/#contact'
+  const waitlistHref = inHome ? '#waitlist' : '/#waitlist'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const onClickOutside = (event: MouseEvent) => {
+      if (
+        productsMenuRef.current &&
+        !productsMenuRef.current.contains(event.target as Node)
+      ) {
+        setProductsOpen(false)
+      }
+    }
+
+    window.addEventListener('click', onClickOutside)
+    return () => window.removeEventListener('click', onClickOutside)
   }, [])
 
   const closeMobile = () => setMobileOpen(false)
@@ -56,28 +78,59 @@ export default function Navbar({ isProductsPage = false }: NavbarProps) {
               </svg>
             </div>
           </div>
-          <span className={styles.logoText}>
-            Kaizuna<span className={styles.logoAccent}>Nexus</span>
-          </span>
+          <span className={styles.logoText}>Kaizuna</span>
         </a>
 
         <div className={styles.navLinks}>
-          <a href="/" className={styles.navLink}>
+          <a href={homeHref} className={styles.navLink}>
             Home
           </a>
-          <a href="/products" className={styles.navLink}>
-            Products
+          <a href={whyHref} className={styles.navLink}>
+            Why Kaizuna
           </a>
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className={styles.navLink}>
-              {link.label}
+          <div className={styles.productsMenu} ref={productsMenuRef}>
+            <a href={ecosystemHref} className={styles.navLink}>
+              Our Ecosystem / Products
             </a>
-          ))}
+            <button
+              type="button"
+              className={styles.dropdownTrigger}
+              onClick={() => setProductsOpen((open) => !open)}
+              aria-expanded={productsOpen}
+              aria-controls="products-dropdown"
+              aria-label="Open product links"
+            >
+              <span className={`${styles.chevron} ${productsOpen ? styles.chevronOpen : ''}`}>
+                ▾
+              </span>
+            </button>
+            <div
+              id="products-dropdown"
+              className={`${styles.dropdown} ${productsOpen ? styles.dropdownOpen : ''}`}
+            >
+              {PRODUCT_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={styles.dropdownLink}
+                  onClick={() => setProductsOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+          <a href={contactHref} className={styles.navLink}>
+            Get in touch
+          </a>
         </div>
 
-        <a href={isProductsPage ? '/#waitlist' : '#waitlist'} className={styles.cta}>
-          Connect Now →
-        </a>
+        <div className={styles.rightActions}>
+          <a href={waitlistHref} className={styles.cta}>
+            Join Waitlist
+          </a>
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        </div>
 
         <button
           className={`${styles.hamburger} ${mobileOpen ? styles.active : ''}`}
@@ -96,13 +149,17 @@ export default function Navbar({ isProductsPage = false }: NavbarProps) {
         id="mobile-primary-nav"
         className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`}
       >
-        <a href="/" className={styles.mobileNavLink} onClick={closeMobile}>
+        <a href={homeHref} className={styles.mobileNavLink} onClick={closeMobile}>
           Home
         </a>
-        <a href="/products" className={styles.mobileNavLink} onClick={closeMobile}>
-          Products
+        <a href={whyHref} className={styles.mobileNavLink} onClick={closeMobile}>
+          Why Kaizuna
         </a>
-        {links.map((link) => (
+        <a href={ecosystemHref} className={styles.mobileNavLink} onClick={closeMobile}>
+          Our Ecosystem / Products
+        </a>
+        <div className={styles.mobileSubhead}>Product Pages</div>
+        {PRODUCT_LINKS.map((link) => (
           <a
             key={link.href}
             href={link.href}
@@ -112,12 +169,11 @@ export default function Navbar({ isProductsPage = false }: NavbarProps) {
             {link.label}
           </a>
         ))}
-        <a
-          href={isProductsPage ? '/#waitlist' : '#waitlist'}
-          className={styles.mobileCta}
-          onClick={closeMobile}
-        >
-          Connect Now →
+        <a href={waitlistHref} className={styles.mobileCta} onClick={closeMobile}>
+          Join Waitlist
+        </a>
+        <a href={contactHref} className={styles.mobileCta} onClick={closeMobile}>
+          Get in touch →
         </a>
       </div>
     </>

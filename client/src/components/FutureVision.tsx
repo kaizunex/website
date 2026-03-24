@@ -56,7 +56,7 @@ export default function FutureVision() {
             &mdash; and the platform that gets out of their way.
           </p>
           <p className={styles.quoteAttribution}>
-            &mdash; The Kaizuna Nexus Manifesto
+            &mdash; The Kaizuna Manifesto
           </p>
         </div>
       </div>

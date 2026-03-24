@@ -39,19 +39,23 @@ export default function WhyKaizuna() {
   const sectionRef = useTrackSection('why-kaizuna')
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section id="why-kaizuna" ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.inner}>
           <div>
-            <span className="section-label">Why Kaizuna Nexus</span>
+            <span className="section-label">Why Kaizuna</span>
             <h2 className={styles.sectionTitle}>
               The layer that was{' '}
               <span className={styles.highlight}>always missing.</span>
             </h2>
             <p className={styles.sectionDesc}>
-              LinkedIn optimizes for visibility. Banks optimize for risk.
-              Marketplaces optimize for transactions. Nobody built for the spaces
-              in between &mdash; until now.
+              Kaizuna isn&rsquo;t just another platform&mdash;it&rsquo;s the
+              infrastructure for modern community trust.
+            </p>
+            <p className={styles.quote}>
+              A world where opportunity flows through people. Not through
+              institutions. Not through algorithms. Through the infinite
+              potential of human networks, operating at the speed of trust.
             </p>
 
             <div className={styles.list}>
