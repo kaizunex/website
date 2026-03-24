@@ -1,17 +1,17 @@
 import styles from '../styles/components/Footer.module.css'
 
 const PRODUCT_LINKS = [
-  { label: 'Kaicards', href: '/products#kaicards' },
-  { label: 'Kairef', href: '/products#kairef' },
-  { label: 'Kaitree', href: '/products#kaitree' },
-  { label: 'Connect Now', href: '/#waitlist' },
+  { label: 'Kaicards', href: '/product/kaicards' },
+  { label: 'Kairef', href: '/product/kairef' },
+  { label: 'Kaitree', href: '/product/kaitree' },
+  { label: 'Join Waitlist', href: '/#waitlist' },
 ]
 
 const COMPANY_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Products', href: '/products' },
-  { label: 'How It Works', href: '/#how-it-works' },
-  { label: 'Blog', href: '/#blog' },
+  { label: 'Home', href: '/#hero' },
+  { label: 'Why Kaizuna', href: '/#why-kaizuna' },
+  { label: 'Our Ecosystem', href: '/#use-cases' },
+  { label: 'Get in touch', href: '/#contact' },
 ]
 
 const LEGAL_LINKS = [
@@ -69,10 +69,10 @@ function LogoMark() {
 }
 
 interface FooterProps {
-  isProductsPage?: boolean
+  isProductPage?: boolean
 }
 
-export default function Footer({ isProductsPage = false }: FooterProps) {
+export default function Footer({ isProductPage = false }: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
@@ -81,18 +81,16 @@ export default function Footer({ isProductsPage = false }: FooterProps) {
             <div className={styles.logoMark}>
               <LogoMark />
             </div>
-            <span className={styles.logoText}>
-              Kaizuna<span>Nexus</span>
-            </span>
+            <span className={styles.logoText}>Kaizuna</span>
           </a>
           <p>
             One Nexus. Three Bridges. Infinite connections across financial,
             professional, and ancestral capital.
           </p>
           <p>
-            {isProductsPage
+            {isProductPage
               ? 'Exploring deep dives for Kaicards, Kairef, and Kaitree.'
-              : 'KaizunaNexus builds direct, high-trust pathways without middlemen.'}
+              : 'Kaizuna builds direct, high-trust pathways without middlemen.'}
           </p>
         </div>
 

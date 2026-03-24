@@ -1,138 +1,200 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { productDetails } from '../../data/ecosystem'
-import useScrollAnimation from '../../hooks/useScrollAnimation'
 import styles from '../../styles/components/ProductsPage.module.css'
 
-function ProductVisual({ productId }: { productId: string }) {
-  if (productId === 'kaicards') {
+function ProductIcon({ icon }: { icon: 'credit-card' | 'briefcase' | 'network' }) {
+  if (icon === 'credit-card') {
     return (
-      <div className={`${styles.visual} ${styles.visualKaicards}`} aria-hidden>
-        <div className={styles.cardMock} />
-        <div className={styles.cardMockSecondary} />
-        <div className={styles.signalLine} />
-      </div>
+      <svg viewBox="0 0 24 24" className={styles.productIconSvg} aria-hidden>
+        <rect x="3" y="6" width="18" height="12" rx="2.5" />
+        <path d="M3 10h18" />
+      </svg>
     )
   }
 
-  if (productId === 'kairef') {
+  if (icon === 'briefcase') {
     return (
-      <div className={`${styles.visual} ${styles.visualKairef}`} aria-hidden>
-        <div className={styles.portalWindow} />
-        <div className={styles.resumeCard} />
-        <div className={styles.matchMeter} />
-      </div>
+      <svg viewBox="0 0 24 24" className={styles.productIconSvg} aria-hidden>
+        <rect x="3" y="7" width="18" height="12" rx="2.5" />
+        <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+        <path d="M3 12h18" />
+      </svg>
     )
   }
 
   return (
-    <div className={`${styles.visual} ${styles.visualKaitree}`} aria-hidden>
-      <div className={styles.treeRoot} />
-      <div className={styles.treeBranchA} />
-      <div className={styles.treeBranchB} />
-      <div className={styles.treeLeaf} />
-    </div>
+    <svg viewBox="0 0 24 24" className={styles.productIconSvg} aria-hidden>
+      <circle cx="12" cy="5" r="2.5" />
+      <circle cx="5" cy="17" r="2.5" />
+      <circle cx="19" cy="17" r="2.5" />
+      <path d="M10.4 6.8 6.5 14.6M13.6 6.8l3.9 7.8M7.5 17h9" />
+    </svg>
   )
 }
 
-function FlowBlock({
-  flow,
-}: {
-  flow: {
-    step: number
-    actor: string
-    title: string
-    detail: string
-  }[]
-}) {
+function BenefitList({ items, dark = false }: { items: string[]; dark?: boolean }) {
   return (
-    <div className={styles.flowBox}>
-      <pre className={styles.flowPre} aria-label="Structured user flow">
-        {`{
-  "userFlow": [`}
-      </pre>
-      {flow.map((item, index) => (
-        <article key={item.step} className={styles.flowStep}>
-          <p className={styles.flowLine}>{`    {`}</p>
-          <p className={styles.flowLine}>{`      "step": ${item.step},`}</p>
-          <p className={styles.flowLine}>{`      "actor": "${item.actor}",`}</p>
-          <p className={styles.flowLine}>{`      "title": "${item.title}",`}</p>
-          <p className={styles.flowLine}>{`      "detail": "${item.detail}"`}</p>
-          <p className={styles.flowLine}>
-            {index === flow.length - 1 ? '    }' : '    },'}
-          </p>
-        </article>
+    <ul className={styles.benefitList}>
+      {items.map((item) => (
+        <li key={item} className={styles.benefitItem}>
+          <span className={`${styles.checkIcon} ${dark ? styles.checkIconDark : ''}`}>
+            <svg viewBox="0 0 20 20" aria-hidden>
+              <circle cx="10" cy="10" r="8.5" />
+              <path d="m6.8 10 2.2 2.2 4.2-4.2" />
+            </svg>
+          </span>
+          <span>{item}</span>
+        </li>
       ))}
-      <pre className={styles.flowPre}>{`  ]
-}`}</pre>
-    </div>
+    </ul>
   )
 }
 
-export default function ProductsPage() {
-  const heroRef = useScrollAnimation()
+interface ProductsPageProps {
+  productId: string | null
+}
+
+export default function ProductsPage({ productId }: ProductsPageProps) {
+  const reduceMotion = useReducedMotion()
+  const product = productDetails.find((item) => item.id === productId)
+
+  if (!product) {
+    return (
+      <section className={styles.page}>
+        <div className={styles.fallback}>
+          <h1>Product not found</h1>
+          <p>Please go back to the home page and choose a product again.</p>
+          <a href="/#use-cases" className={styles.fallbackBtn}>
+            Back to home
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  const reveal = (delay = 0) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, amount: 0.15 },
+          transition: {
+            duration: 0.45,
+            ease: [0.23, 1, 0.32, 1] as const,
+            delay,
+          },
+        }
+
+  const hoverLift = reduceMotion
+    ? {}
+    : {
+        whileHover: {
+          y: -4,
+          transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] as const },
+        },
+      }
 
   return (
     <section className={styles.page}>
-      <header ref={heroRef} className={styles.hero}>
-        <span className="section-label">Product Deep Dive</span>
-        <h1 className={styles.title}>
-          KaizunaNexus Products:
-          <span className="gradient-text"> direct bridges, not middlemen.</span>
-        </h1>
-        <p className={styles.subtitle}>
-          Explore how Kaicards, Kairef, and Kaitree convert trusted connections
-          into measurable outcomes.
-        </p>
-      </header>
+      <motion.header
+        className={`${styles.hero} ${styles[product.accent]}`}
+        {...reveal(0)}
+      >
+        <a href="/#use-cases" className={styles.backLink}>
+          <span aria-hidden>←</span> Back to Overview
+        </a>
+        <div className={styles.heroGrid}>
+          <div className={styles.heroMain}>
+            <div className={styles.productIconWrap} aria-hidden>
+              <ProductIcon icon={product.icon} />
+            </div>
+            <p className={styles.heroTag}>{product.heroTag}</p>
+            <h1 className={styles.title}>{product.heroTitle}</h1>
+            <p className={styles.subtitle}>{product.statement}</p>
+          </div>
 
-      <div className={styles.productsWrap}>
-        {productDetails.map((product, index) => {
-          const ref = useScrollAnimation(index * 80)
-          return (
-            <article
-              key={product.id}
-              id={product.id}
-              ref={ref}
-              className={`${styles.productCard} scroll-fade`}
+          <aside className={styles.factsCard} aria-label="Fast facts">
+            <h2 className={styles.factsHeading}>Fast Facts</h2>
+            <div className={styles.factsList}>
+              {product.fastFacts.map((fact) => (
+                <div key={fact.label} className={styles.factRow}>
+                  <span className={styles.factLabel}>{fact.label}</span>
+                  <span className={styles.factValue}>{fact.value}</span>
+                </div>
+              ))}
+            </div>
+            <a href="/#waitlist" className={styles.requestButton}>
+              Request Early Access
+            </a>
+          </aside>
+        </div>
+      </motion.header>
+
+      <motion.section className={styles.personaGrid} {...reveal(0.07)}>
+        <motion.article className={styles.personaCard} {...hoverLift}>
+          <div className={styles.personaIcon} aria-hidden>
+            <ProductIcon icon={product.icon} />
+          </div>
+          <h2 className={styles.personaTitle}>{product.personas.seeker.title}</h2>
+          <BenefitList items={product.personas.seeker.benefits} />
+        </motion.article>
+
+        <motion.article
+          className={`${styles.personaCard} ${styles.personaCardDark}`}
+          {...hoverLift}
+        >
+          <div className={`${styles.personaIcon} ${styles.personaIconDark}`} aria-hidden>
+            <ProductIcon icon={product.icon} />
+          </div>
+          <h2 className={styles.personaTitle}>{product.personas.provider.title}</h2>
+          <BenefitList items={product.personas.provider.benefits} dark />
+        </motion.article>
+      </motion.section>
+
+      <motion.section
+        className={styles.flowSection}
+        aria-label="How it works"
+        {...reveal(0.12)}
+      >
+        <h2 className={styles.flowHeading}>How it works</h2>
+        <div className={styles.flowGrid}>
+          {product.journeySteps.map((step, index) => (
+            <motion.article
+              key={step.number}
+              className={styles.stepCard}
+              {...(reduceMotion
+                ? {}
+                : {
+                    initial: { opacity: 0, y: 18 },
+                    whileInView: { opacity: 1, y: 0 },
+                    viewport: { once: true, amount: 0.2 },
+                    transition: {
+                      duration: 0.4,
+                      ease: [0.23, 1, 0.32, 1] as const,
+                      delay: index * 0.04,
+                    },
+                    whileHover: {
+                      y: -4,
+                      transition: {
+                        duration: 0.2,
+                        ease: [0.23, 1, 0.32, 1] as const,
+                      },
+                    },
+                  })}
             >
-              <div className={styles.productHeader}>
-                <div>
-                  <p className={styles.vertical}>{product.vertical}</p>
-                  <h2 className={styles.productTitle}>{product.name}</h2>
-                </div>
-                <a href="/#waitlist" className={styles.connectBtn}>
-                  Connect Now
-                </a>
-              </div>
-
-              <p className={styles.statement}>{product.statement}</p>
-
-              <div className={styles.copyGrid}>
-                <div className={styles.copyBlock}>
-                  <h3>Product Motivation</h3>
-                  <p>{product.motivation}</p>
-                </div>
-                <div className={styles.copyBlock}>
-                  <h3>Naming Motivation</h3>
-                  <p>{product.namingMotivation}</p>
-                </div>
-              </div>
-
-              <div className={styles.highlights}>
-                {product.highlights.map((highlight) => (
-                  <span key={highlight} className={styles.highlightPill}>
-                    {highlight}
-                  </span>
-                ))}
-              </div>
-
-              <div className={styles.detailGrid}>
-                <FlowBlock flow={product.flow} />
-                <ProductVisual productId={product.id} />
-              </div>
-            </article>
-          )
-        })}
-      </div>
+              <span className={styles.stepNumber}>{step.number}</span>
+              <h3 className={styles.stepTitle}>{step.title}</h3>
+              <p className={styles.stepText}>{step.text}</p>
+              {index < product.journeySteps.length - 1 && (
+                <span className={styles.stepConnector} aria-hidden>
+                  ›
+                </span>
+              )}
+            </motion.article>
+          ))}
+        </div>
+      </motion.section>
     </section>
   )
 }

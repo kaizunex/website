@@ -48,7 +48,7 @@ export default function HowItWorks() {
           </span>
         </h2>
         <p className={styles.sectionDesc}>
-          Kaizuna Nexus turns relationships into mediums — channels through
+          Kaizuna turns relationships into mediums — channels through
           which access, opportunity, and trust actually flow.
         </p>
       </div>

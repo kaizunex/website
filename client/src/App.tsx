@@ -1,54 +1,83 @@
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero/Hero'
-import GradientDivider from './components/GradientDivider'
-import HowItWorks from './components/HowItWorks'
 import UseCases from './components/UseCases/UseCases'
-import Principles from './components/Principles'
 import WhyKaizuna from './components/WhyKaizuna/WhyKaizuna'
-import FutureVision from './components/FutureVision'
 import WaitlistCTA from './components/WaitlistCTA'
 import ContactForm from './components/ContactForm'
-import BlogSection from './components/BlogSection'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
 import ProductsPage from './components/ProductsPage/ProductsPage'
+import { productDetails } from './data/ecosystem'
+
+function getProductIdFromPath(pathname: string) {
+  const match = pathname.match(/^\/product\/([a-z0-9-]+)$/)
+  if (!match) return null
+
+  const productId = match[1]
+  const isValid = productDetails.some((product) => product.id === productId)
+  return isValid ? productId : null
+}
+
+type ThemeMode = 'light' | 'dark'
+
+function getInitialTheme(): ThemeMode {
+  const currentTheme = document.documentElement.dataset.theme
+  if (currentTheme === 'dark') return 'dark'
+
+  try {
+    const saved = localStorage.getItem('kaizuna-theme')
+    if (saved === 'dark' || saved === 'light') return saved
+  } catch {
+    // ignore storage access errors and fall back to light
+  }
+
+  return 'light'
+}
 
 function HomePage() {
   return (
     <>
       <Hero />
-      <GradientDivider />
-      <HowItWorks />
-      <GradientDivider />
       <UseCases />
-      <GradientDivider />
-      <Principles />
-      <GradientDivider />
       <WhyKaizuna />
-      <GradientDivider />
-      <FutureVision />
-      <GradientDivider />
       <WaitlistCTA />
-      <GradientDivider />
       <ContactForm />
-      <BlogSection />
     </>
   )
 }
 
 function App() {
-  const isProductsPage = window.location.pathname === '/products'
+  const { pathname } = window.location
+  const productId = getProductIdFromPath(pathname)
+  const isProductPage = Boolean(productId)
+  const [theme, setTheme] = useState<ThemeMode>(getInitialTheme)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try {
+      localStorage.setItem('kaizuna-theme', theme)
+    } catch {
+      // no-op for private browsing or restricted storage
+    }
+  }, [theme])
 
   return (
     <>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <Navbar isProductsPage={isProductsPage} />
+      <Navbar
+        isProductPage={isProductPage}
+        theme={theme}
+        onToggleTheme={() =>
+          setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+        }
+      />
       <main id="main-content">
-        {isProductsPage ? <ProductsPage /> : <HomePage />}
+        {isProductPage ? <ProductsPage productId={productId} /> : <HomePage />}
       </main>
-      <Footer isProductsPage={isProductsPage} />
+      <Footer isProductPage={isProductPage} />
       <Toast />
     </>
   )

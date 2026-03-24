@@ -9,6 +9,12 @@ const GLOW_CLASS = {
   emerald: styles.glowEmerald,
 }
 
+const LINK_ACCENT_CLASS = {
+  kaicards: styles.linkKaicards,
+  kairef: styles.linkKairef,
+  kaitree: styles.linkKaitree,
+}
+
 function PillarCard({
   pillar,
   index,
@@ -21,6 +27,9 @@ function PillarCard({
   return (
     <article ref={ref} className={`${styles.pillarCard} scroll-fade`}>
       <div className={`${styles.cardGlow} ${GLOW_CLASS[pillar.glow]}`} />
+      <div className={styles.logoSlot} aria-hidden>
+        Product Logo
+      </div>
       <p className={styles.vertical}>{pillar.vertical}</p>
       <h3 className={styles.cardTitle}>{pillar.name}</h3>
       <p className={styles.bridgeLine}>{pillar.bridgeLine}</p>
@@ -33,11 +42,14 @@ function PillarCard({
       </ul>
 
       <div className={styles.cardActions}>
-        <a href={`/products#${pillar.id}`} className={styles.cardLink}>
-          Deep Dive
+        <a
+          href={`/product/${pillar.id}`}
+          className={`${styles.cardLink} ${LINK_ACCENT_CLASS[pillar.id]}`}
+        >
+          View Details
         </a>
         <a href="#waitlist" className={styles.connectLink}>
-          Connect Now
+          Join Waitlist
         </a>
       </div>
     </article>
@@ -51,10 +63,10 @@ export default function UseCases() {
     <section id="use-cases" ref={sectionRef} className={styles.section}>
       <div className={styles.header}>
         <span className="section-label">Three Pillars</span>
-        <h2 className={styles.sectionTitle}>The Bridges powering KaizunaNexus</h2>
+        <h2 className={styles.sectionTitle}>Our Ecosystem</h2>
         <p className={styles.sectionDesc}>
-          Users should understand this ecosystem in one glance: financial
-          utility, referral velocity, and lineage-led trust.
+          We&rsquo;re starting with three pillars designed to solve fundamental
+          daily friction points.
         </p>
       </div>
 

@@ -2,7 +2,7 @@
 
 .section {
   background: var(--surface);
-  padding: 120px 40px;
+  padding: 92px 40px;
   overflow: hidden;
 }
 
@@ -14,17 +14,17 @@
 .inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 56px;
   align-items: center;
 }
 
 /* ── Left Column ──────────────────────────────────── */
 
 .sectionTitle {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 48px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 20px;
 }
@@ -40,14 +40,22 @@
   max-width: 480px;
 }
 
+.quote {
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.68;
+  max-width: 560px;
+}
+
 /* ── Item List ────────────────────────────────────── */
 
 .list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 40px;
+  gap: 16px;
+  margin-top: 28px;
 }
 
 .item {
@@ -84,7 +92,7 @@
 }
 
 .itemTitle {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 17px;
   font-weight: 600;
   line-height: 1.3;
@@ -113,7 +121,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 80px 20px;
+    padding: 64px 20px;
   }
 
   .sectionTitle {
