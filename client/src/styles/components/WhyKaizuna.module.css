@@ -2,7 +2,7 @@
 
 .section {
   background: var(--surface);
-  padding: 92px 40px;
+  padding: 10px 40px;
   overflow: hidden;
 }
 
@@ -48,68 +48,11 @@
   max-width: 560px;
 }
 
-/* ── Item List ────────────────────────────────────── */
-
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 28px;
-}
-
-.item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.item.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.check {
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: #34d399;
-}
-
-.check svg {
-  width: 14px;
-  height: 14px;
-}
-
-.itemTitle {
-  font-family: var(--font-heading);
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-
-.itemDesc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
 /* ── Right Column / Visual ────────────────────────── */
 
 .visual {
   position: relative;
-  height: 480px;
+  height: 500px;
 }
 
 .canvas {
@@ -121,7 +64,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 64px 20px;
+    padding: 34px 20px 10px;
   }
 
   .sectionTitle {

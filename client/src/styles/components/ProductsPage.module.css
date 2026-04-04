@@ -1,5 +1,6 @@
 .page {
-  padding: 120px 5% 72px;
+  padding: 80px 5% 48px;
+  font-family: var(--font-sans);
   background:
     radial-gradient(circle at 12% 8%, rgba(139, 92, 246, 0.1), transparent 42%),
     radial-gradient(circle at 86% 12%, rgba(6, 182, 212, 0.09), transparent 38%),
@@ -8,7 +9,7 @@
 
 .hero {
   max-width: 1220px;
-  margin: 0 auto 36px;
+  margin: 0 auto 12px;
   position: relative;
 }
 
@@ -22,10 +23,11 @@
 }
 
 .heroGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  gap: 30px;
-  align-items: start;
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .heroMain {
@@ -33,10 +35,16 @@
 }
 
 .productIconWrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.iconContainer {
   width: 82px;
   height: 82px;
   border-radius: 24px;
-  margin-bottom: 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +52,13 @@
   border: 1px solid color-mix(in srgb, var(--accentTone) 20%, var(--border-soft));
 }
 
-.productIconSvg {
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5px;
+}
+
+.productIconWrap .productIconSvg {
   width: 36px;
   height: 36px;
   fill: none;
@@ -54,16 +68,17 @@
   stroke-linejoin: round;
 }
 
-.heroTag {
-  margin-bottom: 10px;
+.productIconWrap .heroTag {
+  margin-bottom: 0;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: color-mix(in srgb, var(--accentTone) 70%, var(--text-primary));
-  font-size: 1.05rem;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
 .title {
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.02;
   margin-bottom: 18px;
@@ -84,6 +99,7 @@
 }
 
 .factsHeading {
+  font-family: var(--font-heading);
   font-size: 1.8rem;
   margin-bottom: 18px;
 }
@@ -112,26 +128,31 @@
   margin-top: 24px;
   width: 100%;
   border-radius: 14px;
-  background: #0c1a43;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
   color: #fff;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   min-height: 52px;
   font-weight: 700;
-  transition:
-    transform var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-fast) var(--ease-standard);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  padding: 14px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
 }
 
 .requestButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 30px rgba(11, 16, 32, 0.24);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.45);
 }
 
 .personaGrid {
   max-width: 1220px;
-  margin: 0 auto;
+  margin: 8px auto 22px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 22px;
@@ -144,12 +165,20 @@
   padding: 34px;
   min-height: 340px;
   box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .personaCardDark {
   background: #07163a;
   border-color: rgba(59, 130, 246, 0.22);
   color: #e7edf9;
+}
+
+.personaHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
 }
 
 .personaIcon {
@@ -159,8 +188,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 22px;
   background: color-mix(in srgb, var(--accentTone) 10%, var(--surface));
+  flex-shrink: 0;
+}
+
+.personaHeaderDark {
+  color: #e7edf9;
 }
 
 .personaIconDark {
@@ -168,8 +201,9 @@
 }
 
 .personaTitle {
+  font-family: var(--font-heading);
   font-size: clamp(1.7rem, 3vw, 2.4rem);
-  margin-bottom: 18px;
+  margin-bottom: 0;
 }
 
 .benefitList {
@@ -190,33 +224,32 @@
   color: #d9e5ff;
 }
 
-.checkIcon {
+.benefitIcon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
   margin-top: 2px;
+  color: #10b981;
 }
 
-.checkIcon svg {
+.benefitIcon svg {
   width: 20px;
   height: 20px;
-  fill: none;
-  stroke: #10b981;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
 }
 
-.checkIconDark svg {
-  stroke: #60a5fa;
+.benefitIconDark svg {
+  color: #60a5fa;
 }
 
 .flowSection {
   max-width: 1220px;
-  margin: 48px auto 0;
+  margin: 48px auto 22px;
+  padding: 0;
 }
 
 .flowHeading {
+  font-family: var(--font-heading);
   font-size: clamp(2.1rem, 3.5vw, 3.1rem);
   text-align: center;
   margin-bottom: 26px;
@@ -224,26 +257,102 @@
 
 .flowGrid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  width: 100%;
 }
 
 .stepCard {
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-soft);
-  background: color-mix(in srgb, var(--surface-light) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accentTone) 25%, var(--border-soft));
+  background: color-mix(in srgb, var(--accentTone) 4%, var(--surface-light) 96%);
   padding: 20px;
   position: relative;
   transition:
     transform var(--duration-base) var(--ease-standard),
     border-color var(--duration-base) var(--ease-standard),
     background var(--duration-base) var(--ease-standard);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accentTone) 8%, transparent);
 }
 
 .stepCard:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--accentTone) 26%, var(--border));
-  background: color-mix(in srgb, var(--surface-light) 82%, transparent);
+  border-color: color-mix(in srgb, var(--accentTone) 40%, var(--border-soft));
+  background: color-mix(in srgb, var(--accentTone) 8%, var(--surface-light) 92%);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--accentTone) 15%, transparent);
+}
+
+.platformsSection {
+  max-width: 1220px;
+  margin: 48px auto 22px;
+}
+
+.platformsHeading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.1rem, 3.5vw, 3.1rem);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.platformCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--accentTone) 25%, var(--border-soft));
+  background: color-mix(in srgb, var(--accentTone) 4%, var(--surface-light) 96%);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accentTone) 8%, transparent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.platformCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--accentTone) 15%, transparent);
+}
+
+.platformIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platformIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.platformCard span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .platformsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+  }
+  
+  .platformCard {
+    padding: 20px 12px;
+  }
+  
+  .platformIcon {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .stepNumber {
@@ -255,6 +364,7 @@
 }
 
 .stepTitle {
+  font-family: var(--font-heading);
   font-size: 1.9rem;
   margin-bottom: 8px;
 }
@@ -316,7 +426,7 @@
 
 @media (max-width: 1160px) {
   .flowGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .stepConnector {
@@ -330,12 +440,8 @@
     grid-template-columns: 1fr;
   }
 
-  .factsCard {
-    max-width: 430px;
-  }
-
   .flowGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

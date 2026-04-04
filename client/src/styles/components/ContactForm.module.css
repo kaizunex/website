@@ -2,7 +2,7 @@
 
 .section {
   background: var(--surface);
-  padding: 92px 5%;
+  padding: 44px 5% 50px;
   overflow: hidden;
 }
 
@@ -151,7 +151,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 64px 5%;
+    padding: 40px 5% 44px;
   }
 
   .sectionTitle {

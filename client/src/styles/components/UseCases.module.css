@@ -4,14 +4,28 @@
     color-mix(in srgb, var(--surface) 96%, transparent),
     color-mix(in srgb, var(--surface-light) 82%, transparent)
   );
-  padding: 88px 40px;
+  padding: 20px 40px;
   position: relative;
   overflow: hidden;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 16px;
+  padding-bottom: 20px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cardFooter {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sectionTitle {
@@ -50,7 +64,7 @@
 }
 
 .pillarGrid {
-  margin: 12px auto 0;
+  margin: 8px auto 0;
   max-width: 1200px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -99,6 +113,19 @@
   background: rgba(16, 185, 129, 0.2);
 }
 
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5px;
+}
+
 .logoSlot {
   width: 106px;
   height: 40px;
@@ -112,18 +139,52 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 106px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background: color-mix(in srgb, var(--surface-light) 88%, var(--surface));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoMark svg {
+  width: 76px;
+  height: 22px;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.logoKaicards {
+  color: #4f46e5;
+}
+
+.logoKairef {
+  color: #0891b2;
+}
+
+.logoKaitree {
+  color: #059669;
 }
 
 .vertical {
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  margin-bottom: 0;
 }
 
 .cardTitle {
-  margin-top: 8px;
+  margin-top: 0;
   font-size: 1.6rem;
 }
 
@@ -164,6 +225,22 @@
   box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
+.textLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.textLink:hover {
+  color: var(--accentTone);
+}
+
+.textLink span {
+  margin-left: 0;
+  font-size: 1.1em;
+}
+
 .cardActions {
   margin-top: 20px;
   display: flex;
@@ -180,56 +257,65 @@
   padding: 0 16px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--surface-light);
-  color: var(--text-primary);
+  background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+  color: #fff;
   transition:
     transform var(--duration-fast) var(--ease-standard),
     border-color var(--duration-fast) var(--ease-standard),
     background var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard);
+  box-shadow: 0 0 12px rgba(196, 181, 253, 0.3);
 }
 
 .cardLink:hover {
   transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(196, 181, 253, 0.5);
 }
 
 .linkKaicards:hover {
-  border-color: color-mix(in srgb, #60a5fa 56%, var(--border));
-  background: color-mix(in srgb, #93c5fd 18%, var(--surface-light));
-  color: #1d4ed8;
+  border-color: color-mix(in srgb, var(--primary) 56%, var(--border));
+  background: color-mix(in srgb, var(--primary-light) 18%, var(--surface-light));
+  color: var(--primary-dark);
 }
 
 .linkKairef:hover {
-  border-color: color-mix(in srgb, #34d399 56%, var(--border));
-  background: color-mix(in srgb, #6ee7b7 18%, var(--surface-light));
-  color: #047857;
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--border));
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface-light));
+  color: var(--accent-dark);
 }
 
 .linkKaitree:hover {
-  border-color: color-mix(in srgb, #a78bfa 56%, var(--border));
-  background: color-mix(in srgb, #c4b5fd 20%, var(--surface-light));
-  color: #6d28d9;
+  border-color: color-mix(in srgb, #10b981 56%, var(--border));
+  background: color-mix(in srgb, #10b981 18%, var(--surface-light));
+  color: #047857;
 }
 
 :global(:root[data-theme='dark']) .linkKaicards:hover {
-  color: #bfdbfe;
+  color: var(--primary-light);
 }
 
 :global(:root[data-theme='dark']) .linkKairef:hover {
-  color: #a7f3d0;
+  color: var(--accent);
 }
 
 :global(:root[data-theme='dark']) .linkKaitree:hover {
-  color: #ddd6fe;
+  color: #a7f3d0;
 }
 
 .connectLink {
   padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--surface-light);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
   font-size: 0.88rem;
-  color: var(--text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
 @keyframes dash {
@@ -238,9 +324,57 @@
   }
 }
 
+/* ── Persona Tabs ─────────────────────────────────── */
+
+.personaBenefits {
+  margin-top: 24px;
+}
+
+.personaTabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.personaTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-light);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  border: none;
+}
+
+.personaTab:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.activeTab {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.tabDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
 @media (max-width: 900px) {
   .section {
-    padding: 64px 20px;
+    padding: 14px 20px 28px;
   }
 
   .pillarGrid {

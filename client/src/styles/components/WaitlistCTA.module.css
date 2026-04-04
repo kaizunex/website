@@ -1,6 +1,6 @@
 .section {
-  background: var(--bg);
-  padding: 92px 5%;
+  background: #fff;
+  padding: 60px 5%;
   overflow: hidden;
   position: relative;
 }
@@ -18,7 +18,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
+  width: 70vw;
   height: 400px;
   background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.12), transparent);
   pointer-events: none;
@@ -35,22 +35,6 @@
     transform: translate(-50%, -50%) scale(1.08);
     opacity: 1;
   }
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.title.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .desc {
@@ -74,7 +58,7 @@
   border-radius: 12px;
   padding: 16px 20px;
   color: var(--text-primary);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   outline: none;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -195,7 +179,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 68px 5%;
+    padding: 38px 5%;
   }
 
   .form {

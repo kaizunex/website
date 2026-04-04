@@ -1,48 +1,108 @@
 .navbar {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 72px;
+  padding: 16px 5%;
+  background: transparent;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5%;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-soft);
-  transition: background 0.3s, border-color 0.3s;
+  min-height: 72px;
+}
+
+.navbar > *:not(.navbarCanvas):not(.navbarGlowLeft):not(.navbarGlowRight):not(.navbarOrbTop):not(.navbarOrbBottom) {
+  position: relative;
+  z-index: 10;
+}
+
+.navbarCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.navbarGlowLeft {
+  position: absolute;
+  top: -50%;
+  left: -7%;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 72%);
+  pointer-events: none;
+  animation: breathe 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+.navbarGlowRight {
+  position: absolute;
+  top: -50%;
+  right: -5%;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.16), transparent 72%);
+  pointer-events: none;
+  animation: breathe 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.navbarOrbTop,
+.navbarOrbBottom {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(16px);
+  will-change: transform;
+}
+
+.navbarOrbTop {
+  width: 160px;
+  height: 160px;
+  top: -80px;
+  right: 20%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.34), transparent 70%);
+  animation: float 7s ease-in-out infinite;
+}
+
+.navbarOrbBottom {
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  left: 15%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.26), transparent 72%);
+  animation: float 8.8s ease-in-out infinite reverse;
 }
 
 .navbar.scrolled {
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
-  border-bottom-color: var(--border);
+  background: transparent;
+}
+
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.25rem;
 }
 
-.logoMark {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  padding: 2px;
-  flex-shrink: 0;
-}
-
-.logoMarkInner {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  background: var(--bg);
+.logoIcon {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,6 +120,8 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  flex: 1;
+  justify-content: flex-start;
 }
 
 .navLink {
@@ -85,37 +147,29 @@
 }
 
 .dropdownTrigger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: var(--text-secondary);
-  transition: color 0.2s;
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface-elevated);
+  position: relative;
 }
 
 .dropdownTrigger:hover {
   color: var(--text-primary);
-  border-color: var(--border);
 }
 
-.chevron {
-  font-size: 11px;
-  transition: transform 0.2s;
+.dropdownTrigger:hover .dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.chevronOpen {
-  transform: rotate(180deg);
+.dropdown:hover {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .dropdown {
   position: absolute;
   top: calc(100% + 12px);
-  right: 0;
+  left: 0;
   min-width: 180px;
   padding: 8px;
   border-radius: 12px;
@@ -205,14 +259,13 @@
 }
 
 .mobileNav {
-  position: fixed;
-  top: 72px;
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
   background: color-mix(in srgb, var(--bg) 95%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-soft);
   padding: 24px 5%;
   display: flex;
   flex-direction: column;
@@ -233,7 +286,6 @@
   font-size: 16px;
   color: var(--text-secondary);
   padding: 12px 0;
-  border-bottom: 1px solid rgba(45, 45, 74, 0.3);
   transition: color 0.2s;
   text-decoration: none;
   display: block;
@@ -281,5 +333,23 @@
 
   .hamburger {
     display: flex;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.05) translateY(-10px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.02);
   }
 }

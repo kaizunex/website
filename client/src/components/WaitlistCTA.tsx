@@ -89,13 +89,6 @@ export default function WaitlistCTA() {
           Early Access
         </span>
 
-        <h2
-          ref={titleRef}
-          className={styles.title}
-        >
-          Be part of the network.
-        </h2>
-
         <p className={styles.desc}>
           Join the waitlist for early access. The future of human connection is
           being built right now &mdash; and it starts with you.

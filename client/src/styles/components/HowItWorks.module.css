@@ -12,7 +12,7 @@
 
 .sectionTitle {
   max-width: 100%;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 48px;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -91,7 +91,7 @@
 /* ── Number ───────────────────────────────────────── */
 
 .number {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 72px;
   font-weight: 800;
   color: var(--border);
@@ -142,7 +142,7 @@
 /* ── Title & Description ──────────────────────────── */
 
 .title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 12px;

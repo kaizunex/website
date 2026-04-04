@@ -103,7 +103,7 @@
   position: absolute;
   top: -20px;
   left: 30px;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: 160px;
   font-weight: 800;
   color: rgba(139, 92, 246, 0.08);
@@ -112,7 +112,7 @@
 }
 
 .quoteText {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 600;
   line-height: 1.4;

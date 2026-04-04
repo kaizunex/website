@@ -39,8 +39,8 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <UseCases />
       <WhyKaizuna />
+      <UseCases />
       <WaitlistCTA />
       <ContactForm />
     </>
@@ -69,10 +69,6 @@ function App() {
       </a>
       <Navbar
         isProductPage={isProductPage}
-        theme={theme}
-        onToggleTheme={() =>
-          setTheme((current) => (current === 'light' ? 'dark' : 'light'))
-        }
       />
       <main id="main-content">
         {isProductPage ? <ProductsPage productId={productId} /> : <HomePage />}

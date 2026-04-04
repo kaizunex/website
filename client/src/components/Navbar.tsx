@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/components/Navbar.module.css'
-import ThemeToggle from './ThemeToggle'
+import HeroCanvas from './Hero/HeroCanvas'
 
 const PRODUCT_LINKS = [
   { label: 'Kaicards', href: '/product/kaicards' },
@@ -10,14 +10,10 @@ const PRODUCT_LINKS = [
 
 interface NavbarProps {
   isProductPage?: boolean
-  theme: 'light' | 'dark'
-  onToggleTheme: () => void
 }
 
 export default function Navbar({
   isProductPage = false,
-  theme,
-  onToggleTheme,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -59,6 +55,11 @@ export default function Navbar({
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
         aria-label="Primary navigation"
       >
+        <div className={styles.navbarGlowLeft} />
+        <div className={styles.navbarGlowRight} />
+        <div className={styles.navbarOrbTop} />
+        <div className={styles.navbarOrbBottom} />
+
         <a href="/" className={styles.logo}>
           <div className={styles.logoMark}>
             <div className={styles.logoMarkInner}>
@@ -82,54 +83,17 @@ export default function Navbar({
         </a>
 
         <div className={styles.navLinks}>
-          <a href={homeHref} className={styles.navLink}>
-            Home
-          </a>
-          <a href={whyHref} className={styles.navLink}>
-            Why Kaizuna
-          </a>
-          <div className={styles.productsMenu} ref={productsMenuRef}>
-            <a href={ecosystemHref} className={styles.navLink}>
-              Our Ecosystem / Products
+          {!inHome && (
+            <a href={homeHref} className={styles.navLink}>
+              Home
             </a>
-            <button
-              type="button"
-              className={styles.dropdownTrigger}
-              onClick={() => setProductsOpen((open) => !open)}
-              aria-expanded={productsOpen}
-              aria-controls="products-dropdown"
-              aria-label="Open product links"
-            >
-              <span className={`${styles.chevron} ${productsOpen ? styles.chevronOpen : ''}`}>
-                ▾
-              </span>
-            </button>
-            <div
-              id="products-dropdown"
-              className={`${styles.dropdown} ${productsOpen ? styles.dropdownOpen : ''}`}
-            >
-              {PRODUCT_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={styles.dropdownLink}
-                  onClick={() => setProductsOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-          <a href={contactHref} className={styles.navLink}>
-            Get in touch
-          </a>
+          )}
         </div>
 
         <div className={styles.rightActions}>
           <a href={waitlistHref} className={styles.cta}>
             Join Waitlist
           </a>
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
 
         <button
@@ -152,23 +116,6 @@ export default function Navbar({
         <a href={homeHref} className={styles.mobileNavLink} onClick={closeMobile}>
           Home
         </a>
-        <a href={whyHref} className={styles.mobileNavLink} onClick={closeMobile}>
-          Why Kaizuna
-        </a>
-        <a href={ecosystemHref} className={styles.mobileNavLink} onClick={closeMobile}>
-          Our Ecosystem / Products
-        </a>
-        <div className={styles.mobileSubhead}>Product Pages</div>
-        {PRODUCT_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className={styles.mobileNavLink}
-            onClick={closeMobile}
-          >
-            {link.label}
-          </a>
-        ))}
         <a href={waitlistHref} className={styles.mobileCta} onClick={closeMobile}>
           Join Waitlist
         </a>

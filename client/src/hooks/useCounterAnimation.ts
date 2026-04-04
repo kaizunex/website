@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
 export default function useCounterAnimation(
-  target: number,
+  target: number | string,
   suffix: string,
   duration: number,
 ) {
   const ref = useRef<HTMLDivElement>(null)
-  const [value, setValue] = useState(`0${suffix}`)
+  const [value, setValue] = useState(typeof target === 'string' ? `${target}${suffix}` : `0${suffix}`)
   const triggered = useRef(false)
 
   useEffect(() => {
@@ -18,6 +18,12 @@ export default function useCounterAnimation(
         if (entry.isIntersecting && !triggered.current) {
           triggered.current = true
           observer.unobserve(el)
+
+          // If target is a string (like infinity sign), set it immediately without animation
+          if (typeof target === 'string') {
+            setValue(`${target}${suffix}`)
+            return
+          }
 
           const start = performance.now()
 
