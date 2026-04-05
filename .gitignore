@@ -9,6 +9,10 @@ build/
 # Env files
 .env
 .env.*
+!.env.example
+!server/.env.example
+server/credentials/
+*.service-account.json
 
 # Logs
 npm-debug.log*

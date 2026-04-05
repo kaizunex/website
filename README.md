@@ -22,7 +22,7 @@ kaizuna/
 │   │   │   ├── HowItWorks.tsx
 │   │   │   ├── Principles.tsx
 │   │   │   ├── FutureVision.tsx
-│   │   │   ├── WaitlistCTA.tsx       # Waitlist with email confirmation flow
+│   │   │   ├── WaitlistCTA.tsx       # Waitlist (email → Google Sheet)
 │   │   │   ├── ContactForm.tsx
 │   │   │   ├── BlogSection.tsx       # Placeholder blog listing
 │   │   │   ├── Footer.tsx
@@ -106,9 +106,8 @@ All endpoints are prefixed with `/api`.
 
 | Method | Endpoint              | Description                              |
 | ------ | --------------------- | ---------------------------------------- |
-| POST   | `/api/waitlist`       | Submit email, receive confirmation code  |
-| POST   | `/api/waitlist/confirm` | Confirm email with 6-digit code        |
-| GET    | `/api/waitlist/count` | Get count of confirmed signups           |
+| POST   | `/api/waitlist`       | Submit email (appends to Google Sheet)   |
+| GET    | `/api/waitlist/count` | Approximate signup count (this server run) |
 | POST   | `/api/contact`        | Submit contact form (name, email, msg)   |
 | POST   | `/api/analytics/event`| Track a frontend event                   |
 | GET    | `/api/analytics/summary` | Get aggregated event counts           |
@@ -117,7 +116,6 @@ All endpoints are prefixed with `/api`.
 ### Example: Join Waitlist
 
 ```bash
-# Submit email
 curl -X POST http://localhost:2000/api/waitlist \
   -H "Content-Type: application/json" \
   -d '{"email": "user@example.com"}'
@@ -125,18 +123,11 @@ curl -X POST http://localhost:2000/api/waitlist \
 # Response
 {
   "success": true,
-  "message": "Check your inbox for a confirmation code.",
-  "code": "123456"
+  "message": "You're on the list!"
 }
-
-# Confirm with code
-curl -X POST http://localhost:2000/api/waitlist/confirm \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "code": "123456"}'
 ```
 
-> In development, the confirmation code is returned in the response.
-> In production, it would be sent via email (plug in SendGrid, Resend, etc.).
+The email is appended to the **Early access** tab in Google Sheets (see `GOOGLE_SHEETS_WAITLIST_RANGE` in `server/.env`).
 
 ---
 
@@ -172,7 +163,7 @@ curl -X POST http://localhost:2000/api/waitlist/confirm \
 - **Counter Animation** - Stats count up with eased timing when visible
 - **Glassmorphism Navbar** - Blurred backdrop, opacity shift on scroll
 - **Persona Tabs** - Interactive tab switching with fade animations on Use Cases
-- **Email Confirmation Flow** - Waitlist uses 6-digit code verification
+- **Waitlist** - Email saved to Google Sheets (no OTP)
 - **Contact Form** - Name, email, message with validation and API submission
 - **Blog Placeholder** - 4 "Coming Soon" blog post cards
 - **Analytics Tracking** - Section views and CTA clicks sent to backend
@@ -191,6 +182,12 @@ curl -X POST http://localhost:2000/api/waitlist/confirm \
 PORT=2000
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
+
+# Google Sheets
+GOOGLE_SHEETS_SPREADSHEET_ID=11-YxpN1xHbaNGrRbT3EGF5Gkims4FJZNlWAKLZSG3Kk
+GOOGLE_SHEETS_WAITLIST_RANGE='Early access'!A:B
+GOOGLE_SHEETS_CONTACT_RANGE='something in mind'!A:D
+GOOGLE_SERVICE_ACCOUNT_JSON_PATH=./server/credentials/google-service-account.json
 ```
 
 ### Client (`client/.env`)
@@ -221,6 +218,31 @@ npm start
 ```
 
 ---
+
+## Google Sheets Integration
+
+The backend now appends:
+
+- `POST /api/waitlist` -> `Early access` sheet (email, timestamp)
+- `POST /api/contact` -> `something in mind` sheet (name, email, message, timestamp)
+
+### Setup steps
+
+1. In `server/`, copy `.env.example` to `.env` and keep the values.
+2. Create `server/credentials/google-service-account.json` and paste your Google service account JSON there.
+3. Share your Google Sheet with the service account email (`client_email` in the JSON) as **Editor**.
+4. Restart backend: `npm run dev:server`.
+5. Submit both forms from the site and verify rows are appended.
+
+### Security notes
+
+- `server/credentials/` and `.env*` are git-ignored, so creds stay local.
+- Never commit service account JSON files or private keys.
+- If you prefer env-only creds, use `GOOGLE_CLIENT_EMAIL` and `GOOGLE_PRIVATE_KEY` in `server/.env`.
+
+### Troubleshooting (403 on waitlist only)
+
+If contact rows work but waitlist fails with permission errors, the **tab name** in `GOOGLE_SHEETS_WAITLIST_RANGE` must match the sheet tab exactly (including spaces and capitalization), e.g. `'Early access'!A:B`. Share the spreadsheet with the service account as **Editor**.
 
 ## Replacing In-Memory Storage
 

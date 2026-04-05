@@ -1,10 +1,3 @@
-interface WaitlistEntry {
-  email: string;
-  code: string;
-  confirmed: boolean;
-  createdAt: Date;
-}
-
 interface Contact {
   name: string;
   email: string;
@@ -18,46 +11,16 @@ interface AnalyticsEvent {
   timestamp: Date;
 }
 
-const waitlistEntries = new Map<string, WaitlistEntry>();
+let waitlistSignupCount = 0;
 const contacts: Contact[] = [];
 const analyticsEvents: AnalyticsEvent[] = [];
 
-export function addWaitlistEntry(
-  email: string,
-  code: string,
-): { exists: boolean } {
-  if (waitlistEntries.has(email)) {
-    const entry = waitlistEntries.get(email)!;
-    if (entry.confirmed) return { exists: true };
-    entry.code = code;
-    entry.createdAt = new Date();
-    return { exists: false };
-  }
-  waitlistEntries.set(email, {
-    email,
-    code,
-    confirmed: false,
-    createdAt: new Date(),
-  });
-  return { exists: false };
-}
-
-export function confirmWaitlistEntry(
-  email: string,
-  code: string,
-): boolean {
-  const entry = waitlistEntries.get(email);
-  if (!entry || entry.code !== code) return false;
-  entry.confirmed = true;
-  return true;
+export function incrementWaitlistCount(): void {
+  waitlistSignupCount += 1;
 }
 
 export function getWaitlistCount(): number {
-  let count = 0;
-  for (const entry of waitlistEntries.values()) {
-    if (entry.confirmed) count++;
-  }
-  return count;
+  return waitlistSignupCount;
 }
 
 export function addContact(

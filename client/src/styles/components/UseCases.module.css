@@ -225,24 +225,6 @@
   box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
-.textLink {
-  color: var(--text-secondary);
-  font-size: 14px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.textLink:hover {
-  color: var(--accentTone);
-  text-decoration: underline;
-}
-
-.textLink span {
-  margin-left: 0;
-  font-size: 1.1em;
-}
-
 .cardActions {
   margin-top: 20px;
   display: flex;
@@ -302,6 +284,21 @@
 
 :global(:root[data-theme='dark']) .linkKaitree:hover {
   color: #a7f3d0;
+}
+
+.textLink {
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textLink:hover {
+  border-radius: 999px;
+  border: 1px solid gray;
 }
 
 .connectLink {
