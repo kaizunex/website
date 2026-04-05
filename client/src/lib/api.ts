@@ -6,16 +6,11 @@ export async function postWaitlist(email: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email }),
   })
-  return res.json()
-}
-
-export async function confirmWaitlist(email: string, code: string) {
-  const res = await fetch(`${BASE}/api/waitlist/confirm`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, code }),
-  })
-  return res.json()
+  const data = (await res.json()) as { success?: boolean; message?: string }
+  if (!res.ok) {
+    throw new Error(data.message ?? 'Unable to join waitlist right now.')
+  }
+  return data
 }
 
 export async function getWaitlistCount() {
@@ -33,7 +28,11 @@ export async function postContact(data: {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
-  return res.json()
+  const json = (await res.json()) as { success?: boolean; message?: string }
+  if (!res.ok) {
+    throw new Error(json.message ?? 'Unable to send message right now.')
+  }
+  return json
 }
 
 export async function trackEvent(

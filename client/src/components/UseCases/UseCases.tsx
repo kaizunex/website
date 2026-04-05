@@ -49,7 +49,7 @@ function PillarCard({
             href={`/product/${pillar.id}`}
             className={styles.textLink}
           >
-            View Details <span aria-hidden>{'>'}</span>
+            View Details
           </a>
           <a href="#waitlist" className={styles.connectLink}>
             Join Waitlist

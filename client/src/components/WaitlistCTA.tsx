@@ -1,10 +1,7 @@
 import { useState, type FormEvent } from 'react'
-import { postWaitlist, confirmWaitlist } from '../lib/api'
-import useScrollAnimation from '../hooks/useScrollAnimation'
+import { postWaitlist } from '../lib/api'
 import { useTrackSection, trackClick } from '../hooks/useAnalytics'
 import styles from '../styles/components/WaitlistCTA.module.css'
-
-type Step = 'email' | 'code' | 'done'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -17,13 +14,11 @@ const avatars = [
 
 export default function WaitlistCTA() {
   const sectionRef = useTrackSection('waitlist-cta')
-  const titleRef = useScrollAnimation()
 
   const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
-  const [step, setStep] = useState<Step>('email')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [done, setDone] = useState(false)
 
   function dispatchToast(message: string) {
     window.dispatchEvent(
@@ -44,41 +39,18 @@ export default function WaitlistCTA() {
     trackClick('waitlist-request-access')
 
     try {
-      const res = await postWaitlist(email)
-      if (res.code) setCode(res.code)
-      setStep('code')
-    } catch {
-      setStep('done')
+      await postWaitlist(email)
+      setDone(true)
       dispatchToast("You're on the list! We'll be in touch.")
+      setEmail('')
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.'
+      setError(msg)
     } finally {
       setLoading(false)
     }
   }
-
-  async function handleCodeSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError('')
-
-    if (code.length !== 6) {
-      setError('Please enter the 6-digit code.')
-      return
-    }
-
-    setLoading(true)
-    trackClick('waitlist-confirm-code')
-
-    try {
-      await confirmWaitlist(email, code)
-      setStep('done')
-      dispatchToast("You're in! Welcome to Kaizuna.")
-    } catch {
-      setError('Invalid code. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const isDone = step === 'done'
 
   return (
     <section id="waitlist" ref={sectionRef} className={styles.section}>
@@ -94,7 +66,7 @@ export default function WaitlistCTA() {
           being built right now , and it starts with you.
         </p>
 
-        {step === 'email' && (
+        {!done ? (
           <form className={styles.form} onSubmit={handleEmailSubmit}>
             <input
               type="email"
@@ -112,43 +84,16 @@ export default function WaitlistCTA() {
               className={styles.btn}
               disabled={loading}
             >
-              {loading ? 'Sending…' : 'Request Access'}
+              {loading ? 'Sending…' : 'Join Waitlist'}
             </button>
           </form>
-        )}
-
-        {step === 'code' && (
-          <form onSubmit={handleCodeSubmit} style={{ textAlign: 'center' }}>
-            <input
-              type="text"
-              inputMode="numeric"
-              maxLength={6}
-              placeholder="000000"
-              value={code}
-              onChange={(e) => {
-                setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
-                if (error) setError('')
-              }}
-              className={styles.codeInput}
-              disabled={loading}
-              autoFocus
-            />
-            <button
-              type="submit"
-              className={styles.btn}
-              disabled={loading || code.length !== 6}
-            >
-              {loading ? 'Verifying…' : 'Confirm'}
-            </button>
-          </form>
-        )}
-
-        {isDone && (
+        ) : (
           <button
+            type="button"
             className={`${styles.btn} ${styles.btnSuccess}`}
             disabled
           >
-            &#10003; You&rsquo;re in!
+            &#10003; You&rsquo;re on the list!
           </button>
         )}
 

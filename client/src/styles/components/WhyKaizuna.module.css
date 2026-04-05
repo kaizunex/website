@@ -34,18 +34,18 @@
 }
 
 .sectionDesc {
-  font-size: 17px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
   max-width: 480px;
 }
 
 .quote {
   margin-top: 14px;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.68;
-  max-width: 560px;
+  line-height: 1.6;
+  max-width: 480px;
 }
 
 /* ── Right Column / Visual ────────────────────────── */
