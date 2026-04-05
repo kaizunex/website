@@ -2,6 +2,23 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { productDetails } from '../../data/ecosystem'
 import { useTrackSection, trackClick } from '../../hooks/useAnalytics'
 import styles from '../../styles/components/ProductsPage.module.css'
+import flipkart from '../../assets/logos/flipkart.png'
+import myntra from '../../assets/logos/myntra.png'
+import cleartrip from '../../assets/logos/cleartrip.png'
+import bms from '../../assets/logos/bms.png'
+import ajio from '../../assets/logos/ajio.png'
+import paytm from '../../assets/logos/paytm.png'
+import linkedin from '../../assets/logos/linkedin.png'
+import naukri from '../../assets/logos/naukri.png'
+import iimjobs from '../../assets/logos/iimjobs.png'
+import instahyre from '../../assets/logos/instahyre.png';
+import workday from '../../assets/logos/workday.png';
+import referrer from '../../assets/images/referrer.png';
+import jobseeker from '../../assets/images/jobseeker.png';
+import cardholder from '../../assets/images/cardholder.png';
+import discountseeker from '../../assets/images/discountseeker.png';
+import connector from '../../assets/images/connector.png';
+import bridge from '../../assets/images/bridge.png';
 
 const reveal = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -22,7 +39,92 @@ const hoverLift = {
   },
 }
 
-function ProductIcon({ icon }: { icon: 'credit-card' | 'briefcase' | 'network' }) {
+function ProductIcon({
+  icon,
+}: {
+  icon:
+    | 'credit-card'
+    | 'briefcase'
+    | 'network'
+    | 'wallet-user'
+    | 'card-holder'
+    | 'job-candidate'
+    | 'team-referrer'
+    | 'community-connector'
+    | 'trust-bridge'
+}) {
+  if (icon === 'wallet-user') {
+    return (
+      <img
+        src={discountseeker}
+        alt="Discount Seeker"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
+  if (icon === 'card-holder') {
+    return (
+      <img
+        src={cardholder}
+        alt="Card Holder"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
+  if (icon === 'job-candidate') {
+    return (
+      <img
+        src={jobseeker}
+        alt="Job Seeker"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
+  if (icon === 'team-referrer') {
+    return (
+      <img
+        src={referrer}
+        alt="Team Referrer"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
+  if (icon === 'community-connector') {
+    return (
+      <img
+        src={connector}
+        alt="Community Connector"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
+  if (icon === 'trust-bridge') {
+    return (
+      <img
+        src={bridge}
+        alt="Trust Bridge"
+        style={{
+          borderRadius: '10px'
+        }}
+      />
+    )
+  }
+
   if (icon === 'credit-card') {
     return (
       <svg viewBox="0 0 24 24" className={styles.productIconSvg} aria-hidden>
@@ -53,69 +155,37 @@ function ProductIcon({ icon }: { icon: 'credit-card' | 'briefcase' | 'network' }
 }
 
 function PlatformIcon({ platform }: { platform: string }) {
-  const iconMap: Record<string, React.ReactNode> = {
-    flipkart: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M4.5 10.5C4.5 10.5 12 3 12 3s7.5 7.5 7.5 7.5S12 18 12 18s-7.5-7.5-7.5-7.5z" fill="#2874F0"/>
-      </svg>
-    ),
-    myntra: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#FF3E6C"/>
-      </svg>
-    ),
-    cleartrip: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#E91E63"/>
-      </svg>
-    ),
-    bookmyshow: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-6 12H6V6h6v10zm8 0h-6V6h6v10z" fill="#FF6B00"/>
-      </svg>
-    ),
-    ajio: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#8A2BE2"/>
-      </svg>
-    ),
-    paytm: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-2 12H6V8h12v8z" fill="#00BAF2"/>
-      </svg>
-    ),
-    linkedin: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.31-1.54 1.05-1.54.51 0 .95.31.95 1.03v4.44h2.79v-4.93c0-.77.31-1.54 1.05-1.54.51 0 .95.31.95 1.03v4.44h2.79v-5.3a3.26 3.26 0 0 0-3.26-3.26c-1.07 0-1.75.66-2.24 1.29ZM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z" fill="#0077B5"/>
-      </svg>
-    ),
-    naukri: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#0084FF"/>
-      </svg>
-    ),
-    iimjobs: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#FF6B35"/>
-      </svg>
-    ),
-    instahyre: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#00C896"/>
-      </svg>
-    ),
-    workday: (
-      <svg viewBox="0 0 24 24" aria-hidden>
-        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#FF5A00"/>
-      </svg>
-    ),
+  const normalized = platform.trim().toLowerCase()
+  const logoMap: Record<string, string> = {
+    flipkart,
+    myntra,
+    cleartrip,
+    ajio,
+    paytm,
+    linkedin,
+    naukri,
+    iimjobs,
+    instahyre,
+    workday,
+    bms,
+    bookmyshow: bms,
   }
+
+  const logoSrc = logoMap[normalized]
 
   return (
     <div className={styles.platformIcon}>
-      {iconMap[platform] || (
+      {logoSrc ? (
+        <img
+          src={logoSrc}
+          alt={`${platform} logo`}
+          className={styles.platformLogo}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
         <svg viewBox="0 0 24 24" aria-hidden>
-          <circle cx="12" cy="12" r="10" fill="#ccc"/>
+          <circle cx="12" cy="12" r="10" fill="#ccc" />
         </svg>
       )}
     </div>
@@ -455,7 +525,7 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
         <motion.article className={styles.personaCard} {...hoverLift}>
           <div className={styles.personaHeader} aria-hidden>
             <div className={styles.personaIcon}>
-              <ProductIcon icon={product.icon} />
+              <ProductIcon icon={product.personas.seeker.icon} />
             </div>
             <h2 className={styles.personaTitle}>{product.personas.seeker.title}</h2>
           </div>
@@ -468,7 +538,7 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
         >
           <div className={`${styles.personaHeader} ${styles.personaHeaderDark}`} aria-hidden>
             <div className={`${styles.personaIcon} ${styles.personaIconDark}`}>
-              <ProductIcon icon={product.icon} />
+              <ProductIcon icon={product.personas.provider.icon} />
             </div>
             <h2 className={styles.personaTitle}>{product.personas.provider.title}</h2>
           </div>
@@ -510,11 +580,6 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
               <span className={styles.stepNumber}>{step.number}</span>
               <h3 className={styles.stepTitle}>{step.title}</h3>
               <p className={styles.stepText}>{step.text}</p>
-              {index < product.journeySteps.length - 1 && (
-                <span className={styles.stepConnector} aria-hidden>
-                  ›
-                </span>
-              )}
             </motion.article>
           ))}
         </div>

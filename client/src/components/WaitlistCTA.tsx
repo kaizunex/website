@@ -91,7 +91,7 @@ export default function WaitlistCTA() {
 
         <p className={styles.desc}>
           Join the waitlist for early access. The future of human connection is
-          being built right now &mdash; and it starts with you.
+          being built right now , and it starts with you.
         </p>
 
         {step === 'email' && (

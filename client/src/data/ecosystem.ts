@@ -21,7 +21,17 @@ export interface ProductJourneyStep {
   text: string
 }
 
+export type ProductIcon = 'credit-card' | 'briefcase' | 'network'
+export type ProductPersonaIcon =
+  | 'wallet-user'
+  | 'card-holder'
+  | 'job-candidate'
+  | 'team-referrer'
+  | 'community-connector'
+  | 'trust-bridge'
+
 export interface ProductPersona {
+  icon: ProductPersonaIcon
   title: string
   benefits: string[]
 }
@@ -37,7 +47,7 @@ export interface ProductDetail {
   heroTitle: string
   heroTag: string
   accent: 'blue' | 'emerald' | 'purple'
-  icon: 'credit-card' | 'briefcase' | 'network'
+  icon: ProductIcon
   vertical: string
   statement: string
   motivation: string
@@ -130,6 +140,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'wallet-user',
         title: 'The Discount Seeker',
         benefits: [
           'Access 20%+ discounts without owning 10+ cards',
@@ -139,6 +150,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'card-holder',
         title: 'The Card Holder',
         benefits: [
           'Hit high-tier spending milestones faster',
@@ -240,6 +252,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'job-candidate',
         title: 'The Candidate',
         benefits: [
           'Skip the LinkedIn inbox "black hole"',
@@ -249,6 +262,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'team-referrer',
         title: 'The Referrer',
         benefits: [
           'Save hours of manual resume reviewing',
@@ -351,6 +365,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'community-connector',
         title: 'The Connector',
         benefits: [
           'Discover verified paths to high-value individuals',
@@ -360,6 +375,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'trust-bridge',
         title: 'The Bridge',
         benefits: [
           'Strengthen community ties by acting as a trusted link',

@@ -1,30 +1,33 @@
 /* ── HowItWorks Section ───────────────────────────── */
 
 .section {
-  background: transparent;
-  padding: 120px 40px;
+  background:
+    radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 42%),
+    radial-gradient(circle at 88% 90%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 40%),
+    transparent;
+  padding: 110px 40px;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 
 .sectionTitle {
   max-width: 100%;
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .sectionDesc {
-  font-size: 17px;
+  font-size: clamp(1rem, 1.4vw, 1.06rem);
   color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 560px;
+  line-height: 1.68;
+  max-width: 620px;
   margin: 0 auto;
 }
 
@@ -33,7 +36,7 @@
 .flow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 18px;
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
@@ -42,22 +45,20 @@
 /* ── Card ─────────────────────────────────────────── */
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 48px 36px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, #fff), color-mix(in srgb, var(--surface-light) 96%, #fff));
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 26px;
+  padding: 30px 26px 28px;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
   opacity: 0;
   transform: translateY(40px);
-}
-
-.card:first-child {
-  border-radius: 20px 0 0 20px;
-}
-
-.card:last-child {
-  border-radius: 0 20px 20px 0;
 }
 
 .card.visible {
@@ -70,18 +71,19 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.04) 0%,
-    transparent 50%
+    165deg,
+    color-mix(in srgb, var(--primary) 12%, transparent) 0%,
+    transparent 52%
   );
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--duration-base) var(--ease-standard);
   pointer-events: none;
 }
 
 .card:hover {
-  border-color: rgba(139, 92, 246, 0.4);
-  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary) 36%, var(--border));
+  transform: translateY(-8px);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.15);
 }
 
 .card:hover::before {
@@ -92,28 +94,37 @@
 
 .number {
   font-family: var(--font-heading);
-  font-size: 72px;
-  font-weight: 800;
-  color: var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  height: 32px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--primary-dark) 84%, var(--text-primary));
+  background: color-mix(in srgb, var(--primary) 16%, #fff);
+  border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--border));
   line-height: 1;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   transition: color 0.4s ease;
 }
 
 .card:hover .number {
-  color: rgba(139, 92, 246, 0.2);
+  color: var(--primary-dark);
 }
 
 /* ── Icon ─────────────────────────────────────────── */
 
 .icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .icon svg {
@@ -143,16 +154,16 @@
 
 .title {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: clamp(1.22rem, 1.8vw, 1.42rem);
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   line-height: 1.2;
 }
 
 .desc {
-  font-size: 15px;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.62;
 }
 
 /* ── Connector ────────────────────────────────────── */
@@ -160,16 +171,14 @@
 .connector {
   position: absolute;
   top: 50%;
-  right: -1px;
+  right: -20px;
   transform: translateY(-50%);
-  width: 2px;
-  height: 40px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--primary),
-    transparent
-  );
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+  background: color-mix(in srgb, var(--surface) 95%, white);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--surface) 85%, transparent);
   z-index: 2;
 }
 
@@ -190,14 +199,7 @@
 
   .flow {
     grid-template-columns: 1fr;
-  }
-
-  .card:first-child {
-    border-radius: 20px 20px 0 0;
-  }
-
-  .card:last-child {
-    border-radius: 0 0 20px 20px;
+    gap: 14px;
   }
 
   .connector {

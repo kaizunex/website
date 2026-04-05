@@ -38,7 +38,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 18px;
 }
 
 .iconContainer {
@@ -79,15 +78,14 @@
 
 .title {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 5vw, 4.2rem);
-  line-height: 1.02;
-  margin-bottom: 18px;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.6;
 }
 
 .subtitle {
   color: var(--text-secondary);
-  font-size: clamp(1.08rem, 1.8vw, 1.22rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.3vw, 1.08rem);
+  line-height: 1.68;
 }
 
 .factsCard {
@@ -152,7 +150,7 @@
 
 .personaGrid {
   max-width: 1220px;
-  margin: 8px auto 22px;
+  margin: 25px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 22px;
@@ -182,8 +180,8 @@
 }
 
 .personaIcon {
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -202,7 +200,7 @@
 
 .personaTitle {
   font-family: var(--font-heading);
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   margin-bottom: 0;
 }
 
@@ -216,8 +214,8 @@
   align-items: flex-start;
   gap: 12px;
   color: var(--text-secondary);
-  font-size: 1.08rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .personaCardDark .benefitItem {
@@ -250,7 +248,7 @@
 
 .flowHeading {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 3.5vw, 3.1rem);
+  font-size: clamp(2rem, 3vw, 3rem);
   text-align: center;
   margin-bottom: 26px;
 }
@@ -289,7 +287,7 @@
 
 .platformsHeading {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 3.5vw, 3.1rem);
+  font-size: clamp(2rem, 3vw, 3rem);
   text-align: center;
   margin-bottom: 32px;
 }
@@ -328,13 +326,19 @@
   justify-content: center;
 }
 
+.platformLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .platformIcon svg {
   width: 100%;
   height: 100%;
 }
 
 .platformCard span {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -357,22 +361,23 @@
 
 .stepNumber {
   display: block;
-  font-size: clamp(2rem, 3vw, 2.8rem);
-  font-weight: 800;
-  color: color-mix(in srgb, var(--text-muted) 36%, white);
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  font-weight: 900;
+  color: color-mix(in srgb, var(--text-primary) 36%, white);
   margin-bottom: 10px;
 }
 
 .stepTitle {
   font-family: var(--font-heading);
-  font-size: 1.9rem;
+  font-size: clamp(1.2rem, 1.5vw, 1.45rem);
   margin-bottom: 8px;
+  line-height: 1.25;
 }
 
 .stepText {
   color: var(--text-secondary);
   line-height: 1.6;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .fallback {

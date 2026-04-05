@@ -85,7 +85,7 @@ export default function ContactForm() {
           </h2>
           <p className={styles.sectionDesc}>
             Whether it&rsquo;s a partnership, a question, or just to say hello
-            &mdash; we&rsquo;d love to hear from you.
+            , we&rsquo;d love to hear from you.
           </p>
         </div>
 

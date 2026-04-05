@@ -17,7 +17,7 @@ export default function WhyKaizuna() {
               <span className={styles.highlight}>always missing.</span>
             </h2>
             <p className={styles.sectionDesc}>
-              Kaizuna isn&rsquo;t just another platform&mdash;it&rsquo;s the
+              Kaizuna isn&rsquo;t just another platform, it&rsquo;s the
               infrastructure for modern community trust.
             </p>
             <p className={styles.quote}>

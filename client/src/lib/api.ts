@@ -47,6 +47,6 @@ export async function trackEvent(
       body: JSON.stringify({ event, payload }),
     })
   } catch {
-    /* silent fail — analytics should never break UX */
+    /* silent fail - analytics should never break UX */
   }
 }
