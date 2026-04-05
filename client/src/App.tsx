@@ -39,8 +39,8 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <UseCases />
       <WhyKaizuna />
+      <UseCases />
       <WaitlistCTA />
       <ContactForm />
     </>
@@ -62,6 +62,45 @@ function App() {
     }
   }, [theme])
 
+  useEffect(() => {
+    function scrollToHashTarget() {
+      const hash = window.location.hash
+      if (!hash || hash.length <= 1) return
+
+      const targetId = decodeURIComponent(hash.slice(1))
+      let attempts = 0
+      const maxAttempts = 20
+
+      const tryScroll = () => {
+        const target = document.getElementById(targetId)
+        if (target) {
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          target.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'start',
+          })
+          return
+        }
+
+        attempts += 1
+        if (attempts < maxAttempts) {
+          window.setTimeout(tryScroll, 80)
+        }
+      }
+
+      window.requestAnimationFrame(tryScroll)
+    }
+
+    scrollToHashTarget()
+    window.addEventListener('hashchange', scrollToHashTarget)
+    window.addEventListener('popstate', scrollToHashTarget)
+
+    return () => {
+      window.removeEventListener('hashchange', scrollToHashTarget)
+      window.removeEventListener('popstate', scrollToHashTarget)
+    }
+  }, [])
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -69,10 +108,6 @@ function App() {
       </a>
       <Navbar
         isProductPage={isProductPage}
-        theme={theme}
-        onToggleTheme={() =>
-          setTheme((current) => (current === 'light' ? 'dark' : 'light'))
-        }
       />
       <main id="main-content">
         {isProductPage ? <ProductsPage productId={productId} /> : <HomePage />}

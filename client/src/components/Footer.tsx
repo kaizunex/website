@@ -1,25 +1,25 @@
-import styles from '../styles/components/Footer.module.css'
+import styles from "../styles/components/Footer.module.css";
 
 const PRODUCT_LINKS = [
-  { label: 'Kaicards', href: '/product/kaicards' },
-  { label: 'Kairef', href: '/product/kairef' },
-  { label: 'Kaitree', href: '/product/kaitree' },
-  { label: 'Join Waitlist', href: '/#waitlist' },
-]
+  { label: "Kaicards", href: "/product/kaicards" },
+  { label: "Kairefer", href: "/product/kairefer" },
+  { label: "Kaitree", href: "/product/kaitree" },
+  { label: "Join Waitlist", href: "/#waitlist" },
+];
 
 const COMPANY_LINKS = [
-  { label: 'Home', href: '/#hero' },
-  { label: 'Why Kaizuna', href: '/#why-kaizuna' },
-  { label: 'Our Ecosystem', href: '/#use-cases' },
-  { label: 'Get in touch', href: '/#contact' },
-]
+  { label: "Home", href: "/#hero" },
+  { label: "Why Kaizuna", href: "/#why-kaizuna" },
+  { label: "Our Ecosystem", href: "/#use-cases" },
+  { label: "Get in touch", href: "/#contact" },
+];
 
 const LEGAL_LINKS = [
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Service', href: '#' },
-  { label: 'Cookie Policy', href: '#' },
-  { label: 'Contact', href: '#' },
-]
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms of Service", href: "#" },
+  { label: "Cookie Policy", href: "#" },
+  { label: "Contact", href: "#" },
+];
 
 function LogoMark() {
   return (
@@ -65,11 +65,11 @@ function LogoMark() {
         opacity="0.6"
       />
     </svg>
-  )
+  );
 }
 
 interface FooterProps {
-  isProductPage?: boolean
+  isProductPage?: boolean;
 }
 
 export default function Footer({ isProductPage = false }: FooterProps) {
@@ -83,14 +83,11 @@ export default function Footer({ isProductPage = false }: FooterProps) {
             </div>
             <span className={styles.logoText}>Kaizuna</span>
           </a>
-          <p>
-            One Nexus. Three Bridges. Infinite connections across financial,
-            professional, and ancestral capital.
-          </p>
+          <p>Solve problems through human connections.</p>
           <p>
             {isProductPage
-              ? 'Exploring deep dives for Kaicards, Kairef, and Kaitree.'
-              : 'Kaizuna builds direct, high-trust pathways without middlemen.'}
+              ? "Exploring deep dives for Kaicards, Kairef, and Kaitree."
+              : "Kaizuna builds direct, high-trust pathways without middlemen."}
           </p>
         </div>
 
@@ -133,5 +130,5 @@ export default function Footer({ isProductPage = false }: FooterProps) {
         <p>Built for the next billion connections.</p>
       </div>
     </footer>
-  )
+  );
 }

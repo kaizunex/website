@@ -1,46 +1,76 @@
 .toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface-elevated);
-  color: var(--text-secondary);
-  transition: background var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
-.toggle:hover {
-  color: var(--text-primary);
-  border-color: var(--border);
-  transform: translateY(-1px);
+.track {
+  width: 48px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbLight {
+  transform: translateX(0);
+}
+
+.thumbDark {
+  transform: translateX(24px);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
 }
 
 .icon {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
+  color: var(--text-secondary);
 }
 
-.icon svg {
-  width: 100%;
-  height: 100%;
+.thumbLight .icon {
+  color: #f59e0b;
 }
 
-.label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+.thumbDark .icon {
+  color: #fff;
 }
 
 @media (max-width: 900px) {
-  .label {
-    display: none;
+  .track {
+    width: 44px;
+    height: 22px;
   }
 
-  .toggle {
-    padding: 8px;
+  .thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  .thumbDark {
+    transform: translateX(22px);
+  }
+
+  .icon {
+    width: 10px;
+    height: 10px;
   }
 }

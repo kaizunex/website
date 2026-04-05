@@ -1,5 +1,5 @@
 export interface PillarSummary {
-  id: 'kaicards' | 'kairef' | 'kaitree'
+  id: 'kaicards' | 'kairefer' | 'kaitree'
   name: string
   vertical: string
   bridgeLine: string
@@ -21,7 +21,17 @@ export interface ProductJourneyStep {
   text: string
 }
 
+export type ProductIcon = 'credit-card' | 'briefcase' | 'network'
+export type ProductPersonaIcon =
+  | 'wallet-user'
+  | 'card-holder'
+  | 'job-candidate'
+  | 'team-referrer'
+  | 'community-connector'
+  | 'trust-bridge'
+
 export interface ProductPersona {
+  icon: ProductPersonaIcon
   title: string
   benefits: string[]
 }
@@ -37,7 +47,7 @@ export interface ProductDetail {
   heroTitle: string
   heroTag: string
   accent: 'blue' | 'emerald' | 'purple'
-  icon: 'credit-card' | 'briefcase' | 'network'
+  icon: ProductIcon
   vertical: string
   statement: string
   motivation: string
@@ -49,13 +59,13 @@ export interface ProductDetail {
     provider: ProductPersona
   }
   journeySteps: ProductJourneyStep[]
+  platforms?: { name: string; icon: string }[]
   flow: ProductFlowStep[]
 }
 
 export const nexusStats = [
   { value: '3', label: 'Live Bridges' },
-  { value: '1', label: 'Unified Nexus' },
-  { value: '0', label: 'Middlemen Required' },
+  { value: '∞', label: 'Connections Enabled' }
 ]
 
 export const pillarSummaries: PillarSummary[] = [
@@ -74,8 +84,8 @@ export const pillarSummaries: PillarSummary[] = [
     glow: 'purple',
   },
   {
-    id: 'kairef',
-    name: 'Kairef',
+    id: 'kairefer',
+    name: 'Kairefer',
     vertical: 'HR-Tech Vertical',
     bridgeLine:
       'A no-broker referral engine for direct internal portal uploads.',
@@ -113,7 +123,7 @@ export const productDetails: ProductDetail[] = [
     icon: 'credit-card',
     vertical: 'Fintech Vertical',
     statement:
-      'Credit Bridge is a first-of-its-kind financial matchmaking engine. Many premium credit cards offer massive discounts (10-50%) on specific platforms, but most people do not own every card. Conversely, cardholders often struggle to hit high annual spending milestones. Credit Bridge bridges this gap using a secure escrow system.',
+      'Kaicards is a first-of-its-kind financial matchmaking engine. Many premium credit cards offer massive discounts (10-50%) on specific platforms, but most people do not own every card. Conversely, cardholders often struggle to hit high annual spending milestones. Kaicards bridges this gap using a secure escrow system.',
     motivation:
       'Millions of card discounts go unused while holders still need milestone spend. Existing sharing methods are risky and expose sensitive card data. Kaicards closes this trust gap.',
     namingMotivation:
@@ -130,6 +140,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'wallet-user',
         title: 'The Discount Seeker',
         benefits: [
           'Access 20%+ discounts without owning 10+ cards',
@@ -139,6 +150,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'card-holder',
         title: 'The Card Holder',
         benefits: [
           'Hit high-tier spending milestones faster',
@@ -175,6 +187,14 @@ export const productDetails: ProductDetail[] = [
         text: 'Upon confirmation, funds are released to the Holder, helping them hit spend milestones.',
       },
     ],
+    platforms: [
+      { name: 'Flipkart', icon: 'flipkart' },
+      { name: 'Myntra', icon: 'myntra' },
+      { name: 'Cleartrip', icon: 'cleartrip' },
+      { name: 'BookMyShow', icon: 'bookmyshow' },
+      { name: 'Ajio', icon: 'ajio' },
+      { name: 'Paytm Travel', icon: 'paytm' }
+    ],
     flow: [
       {
         step: 1,
@@ -207,19 +227,19 @@ export const productDetails: ProductDetail[] = [
     ],
   },
   {
-    id: 'kairef',
-    name: 'Kairef',
+    id: 'kairefer',
+    name: 'Kairefer',
     heroTitle: 'Referral Gateway',
     heroTag: 'Professional Growth',
     accent: 'emerald',
     icon: 'briefcase',
     vertical: 'HR-Tech Vertical',
     statement:
-      'Referral Gateway solves the "Referral Fatigue" experienced by employees at top companies. Instead of manually filtering hundreds of LinkedIn DMs, users place a custom Gateway link in their bio. Candidates must pass a pre-screening bot based on the referrer\'s specific criteria before the request ever hits their inbox.',
+      'Kairefer solves the "Referral Fatigue" experienced by employees at top companies. Instead of manually filtering hundreds of LinkedIn DMs, users place a custom Gateway link in their bio. Candidates must pass a pre-screening bot based on the referrer\'s specific criteria before the request ever hits their inbox.',
     motivation:
       'Traditional referral DMs are noisy. Givers are flooded with resumes and seekers disappear into hiring black holes. Kairef automates manual upload friction.',
     namingMotivation:
-      '"Kai" plus "Ref" simplifies the complex act of vouching into one direct, high-trust action.',
+      '"Kai" plus "Refer" simplifies the complex act of vouching into one direct, high-trust action.',
     highlights: [
       'High-fit persona matching',
       'Top-tier match notification',
@@ -232,6 +252,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'job-candidate',
         title: 'The Candidate',
         benefits: [
           'Skip the LinkedIn inbox "black hole"',
@@ -241,6 +262,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'team-referrer',
         title: 'The Referrer',
         benefits: [
           'Save hours of manual resume reviewing',
@@ -271,6 +293,13 @@ export const productDetails: ProductDetail[] = [
         title: 'Auto-Filter',
         text: 'Only candidates who meet 100% of criteria are presented to the referrer.',
       },
+    ],
+    platforms: [
+      { name: 'LinkedIn', icon: 'linkedin' },
+      { name: 'Naukri', icon: 'naukri' },
+      { name: 'IIMJobs', icon: 'iimjobs' },
+      { name: 'Instahyre', icon: 'instahyre' },
+      { name: 'Workday', icon: 'workday' }
     ],
     flow: [
       {
@@ -319,7 +348,7 @@ export const productDetails: ProductDetail[] = [
     icon: 'network',
     vertical: 'Community Vertical',
     statement:
-      'The Community Tree is a visual representation of the "Six Degrees of Separation" theory, applied practically. Unlike standard social media, the Tree focuses on verified relationships-familial, community-based, and high-trust professional links-to help people find suitable matches for life-defining events like marriage or business partnerships.',
+      'Kaitree is a visual representation of the "Six Degrees of Separation" theory, applied practically. Unlike standard social media, the Tree focuses on verified relationships-familial, community-based, and high-trust professional links-to help people find suitable matches for life-defining events like marriage or business partnerships.',
     motivation:
       'Globalization has broken continuity in Vanshavali records. Kaitree digitizes the banyan model so ancestral trust can support networking, business, and matrimonial verification.',
     namingMotivation:
@@ -336,6 +365,7 @@ export const productDetails: ProductDetail[] = [
     ],
     personas: {
       seeker: {
+        icon: 'community-connector',
         title: 'The Connector',
         benefits: [
           'Discover verified paths to high-value individuals',
@@ -345,6 +375,7 @@ export const productDetails: ProductDetail[] = [
         ],
       },
       provider: {
+        icon: 'trust-bridge',
         title: 'The Bridge',
         benefits: [
           'Strengthen community ties by acting as a trusted link',

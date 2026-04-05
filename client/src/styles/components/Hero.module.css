@@ -1,11 +1,12 @@
 .hero {
-  min-height: clamp(620px, 92vh, 920px);
+  min-height: clamp(550px, 50vh, 840px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 104px 5% 64px;
-  position: relative;
+  padding: 10px 5%;
+  position: static;
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--surface) 76%, var(--bg)) 100%);
 }
 
 .canvas {
@@ -22,7 +23,7 @@
   width: 520px;
   height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 72%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.13), transparent 72%);
   pointer-events: none;
   animation: breathe 9s ease-in-out infinite;
   will-change: transform;
@@ -35,7 +36,7 @@
   width: 460px;
   height: 460px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.16), transparent 72%);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.11), transparent 72%);
   pointer-events: none;
   animation: breathe 10s ease-in-out infinite;
   will-change: transform;
@@ -55,7 +56,7 @@
   height: 160px;
   top: 22%;
   right: 20%;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.34), transparent 70%);
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.26), transparent 70%);
   animation: float 7s ease-in-out infinite;
 }
 
@@ -64,7 +65,7 @@
   height: 200px;
   bottom: 14%;
   left: 15%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.26), transparent 72%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18), transparent 72%);
   animation: float 8.8s ease-in-out infinite reverse;
 }
 
@@ -79,23 +80,33 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(139, 92, 246, 0.14);
-  border: 1px solid rgba(139, 92, 246, 0.36);
-  border-radius: 99px;
-  padding: 7px 16px;
-  font-size: 13px;
-  color: #c4b5fd;
+  /* use theme variables for consistent color system */
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 14px;
+  color: var(--primary-dark);
   margin-bottom: 32px;
   animation: fadeInUp 0.8s var(--ease-standard) both;
-  box-shadow: 0 0 24px rgba(139, 92, 246, 0.14);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.06);
 }
 
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22d3ee;
-  animation: pulse 2s ease-in-out infinite;
+.badgeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  color: #fff; /* icon color */
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.badgeText {
+  color: var(--primary-dark);
+  font-weight: 600;
 }
 
 .title {
@@ -193,16 +204,41 @@
 
 .stat {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 80px;
 }
 
 .statValue {
   font-family: var(--font-heading);
   font-size: 32px;
   font-weight: 700;
+  line-height: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(120deg, #c4b5fd, #67e8f9, #6ee7b7);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.infinityValue {
+  font-size: 32px;
+  line-height: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(100deg, #c4b5fd 12%, #67e8f9 32%, #6ee7b7 52%, #c4b5fd 72%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
 }
 
 .statLabel {
@@ -210,11 +246,11 @@
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .scrollHint {
-  margin-top: 34px;
+  margin-top: 20px;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -224,22 +260,34 @@
   letter-spacing: 0.07em;
 }
 
-.mouseShell {
-  width: 22px;
-  height: 36px;
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  display: inline-flex;
+.scrollChevron {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 7px;
+  animation: bounce 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
-.mouseWheel {
-  width: 4px;
-  height: 7px;
-  border-radius: 999px;
-  background: #67e8f9;
-  animation: wheel 1.6s ease-in-out infinite;
+.scrollChevron:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.45);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
 }
 
 @keyframes fadeInUp {
@@ -267,9 +315,19 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
-    padding: 84px 5% 52px;
+    min-height: clamp(520px, 72vh, 760px);
+    padding: 4px 5% 24px;
   }
 
   .titleBreak {
@@ -291,5 +349,10 @@
   .btnPrimary,
   .btnGhost {
     justify-content: center;
+  }
+
+  .infinityValue {
+    font-size: 32px;
+    height: 32px;
   }
 }

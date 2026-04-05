@@ -27,30 +27,34 @@ function PillarCard({
   return (
     <article ref={ref} className={`${styles.pillarCard} scroll-fade`}>
       <div className={`${styles.cardGlow} ${GLOW_CLASS[pillar.glow]}`} />
-      <div className={styles.logoSlot} aria-hidden>
-        Product Logo
-      </div>
-      <p className={styles.vertical}>{pillar.vertical}</p>
-      <h3 className={styles.cardTitle}>{pillar.name}</h3>
-      <p className={styles.bridgeLine}>{pillar.bridgeLine}</p>
-      <p className={styles.oneLiner}>{pillar.oneLiner}</p>
+      <div className={styles.cardContainer}>
+        <div className={styles.cardContent}>
+          <div className={styles.cardHeader}>
+            <div className={styles.titleContainer}>
+              <h3 className={styles.cardTitle}>{pillar.name}</h3>
+              <p className={styles.vertical}>{pillar.vertical}</p>
+            </div>
+          </div>
+          <p className={styles.bridgeLine}>{pillar.bridgeLine}</p>
+          <p className={styles.oneLiner}>{pillar.oneLiner}</p>
 
-      <ul className={styles.outcomeList}>
-        {pillar.outcomes.map((outcome) => (
-          <li key={outcome}>{outcome}</li>
-        ))}
-      </ul>
-
-      <div className={styles.cardActions}>
-        <a
-          href={`/product/${pillar.id}`}
-          className={`${styles.cardLink} ${LINK_ACCENT_CLASS[pillar.id]}`}
-        >
-          View Details
-        </a>
-        <a href="#waitlist" className={styles.connectLink}>
-          Join Waitlist
-        </a>
+          <ul className={styles.outcomeList}>
+            {pillar.outcomes.map((outcome) => (
+              <li key={outcome}>{outcome}</li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.cardFooter}>
+          <a
+            href={`/product/${pillar.id}`}
+            className={styles.textLink}
+          >
+            View Details <span aria-hidden>{'>'}</span>
+          </a>
+          <a href="#waitlist" className={styles.connectLink}>
+            Join Waitlist
+          </a>
+        </div>
       </div>
     </article>
   )
@@ -68,12 +72,6 @@ export default function UseCases() {
           We&rsquo;re starting with three pillars designed to solve fundamental
           daily friction points.
         </p>
-      </div>
-
-      <div className={styles.connectorRail} aria-hidden>
-        <svg viewBox="0 0 1200 120" className={styles.connectorSvg}>
-          <path d="M20 60h360c80 0 120-45 200-45s120 45 200 45h200" />
-        </svg>
       </div>
 
       <div className={styles.pillarGrid}>

@@ -12,7 +12,7 @@ export const principles: Principle[] = [
   {
     name: 'Privacy First',
     description:
-      'Sensitive information never surfaces on the platform. Your connections, transactions, and interactions remain private by default — visible only to the parties involved.',
+      'Sensitive information never surfaces on the platform. Your connections, transactions, and interactions remain private by default - visible only to the parties involved.',
     footerText: 'Zero data exploitation →',
     footerColor: '#A78BFA',
     iconBg: 'rgba(139, 92, 246, 0.1)',
@@ -22,7 +22,7 @@ export const principles: Principle[] = [
   {
     name: 'Transparent Interactions',
     description:
-      'Every connection, every exchange, every outcome — fully visible to participants. No hidden algorithms, no shadow rankings, no manipulation of who sees what.',
+      'Every connection, every exchange, every outcome - fully visible to participants. No hidden algorithms, no shadow rankings, no manipulation of who sees what.',
     footerText: 'Full interaction audit trails →',
     footerColor: '#34D399',
     iconBg: 'rgba(16, 185, 129, 0.1)',
@@ -32,7 +32,7 @@ export const principles: Principle[] = [
   {
     name: 'Trust-Based Ecosystem',
     description:
-      'Trust is earned, tracked, and transferable. Your reputation follows you across the platform — built through real interactions, not self-reported credentials.',
+      'Trust is earned, tracked, and transferable. Your reputation follows you across the platform - built through real interactions, not self-reported credentials.',
     footerText: 'On-chain reputation model →',
     footerColor: '#93C5FD',
     iconBg: 'rgba(59, 130, 246, 0.1)',

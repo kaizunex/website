@@ -1,4 +1,4 @@
-# Kaizuna Nexus — Marketing Landing Page
+# Kaizuna Nexus - Marketing Landing Page
 
 > **"Where Connections Become Opportunities"**
 >
@@ -159,27 +159,27 @@ curl -X POST http://localhost:2000/api/waitlist/confirm \
 | `--text-muted`     | `#64748B` | Labels, captions         |
 
 **Typography:**
-- Display / Headings: **Syne** (Google Fonts) — 700-800 weight
-- Body / UI: **DM Sans** (Google Fonts) — 300-500 weight
+- Display / Headings: **Syne** (Google Fonts) - 700-800 weight
+- Body / UI: **DM Sans** (Google Fonts) - 300-500 weight
 
 ---
 
 ## Features
 
-- **Interactive Canvas Networks** — Hero, Why section, and Use Cases use animated node graphs
-- **Mouse Repulsion** — Hero canvas nodes react to cursor position
-- **Scroll Animations** — Elements fade/slide in as they enter viewport (IntersectionObserver)
-- **Counter Animation** — Stats count up with eased timing when visible
-- **Glassmorphism Navbar** — Blurred backdrop, opacity shift on scroll
-- **Persona Tabs** — Interactive tab switching with fade animations on Use Cases
-- **Email Confirmation Flow** — Waitlist uses 6-digit code verification
-- **Contact Form** — Name, email, message with validation and API submission
-- **Blog Placeholder** — 4 "Coming Soon" blog post cards
-- **Analytics Tracking** — Section views and CTA clicks sent to backend
-- **Rate Limiting** — 30 requests per 60 seconds per IP
-- **Toast Notifications** — Animated success messages
-- **Responsive Design** — Breakpoints at 900px and 600px
-- **Graceful Degradation** — Frontend works even if backend is unreachable
+- **Interactive Canvas Networks** - Hero, Why section, and Use Cases use animated node graphs
+- **Mouse Repulsion** - Hero canvas nodes react to cursor position
+- **Scroll Animations** - Elements fade/slide in as they enter viewport (IntersectionObserver)
+- **Counter Animation** - Stats count up with eased timing when visible
+- **Glassmorphism Navbar** - Blurred backdrop, opacity shift on scroll
+- **Persona Tabs** - Interactive tab switching with fade animations on Use Cases
+- **Email Confirmation Flow** - Waitlist uses 6-digit code verification
+- **Contact Form** - Name, email, message with validation and API submission
+- **Blog Placeholder** - 4 "Coming Soon" blog post cards
+- **Analytics Tracking** - Section views and CTA clicks sent to backend
+- **Rate Limiting** - 30 requests per 60 seconds per IP
+- **Toast Notifications** - Animated success messages
+- **Responsive Design** - Breakpoints at 900px and 600px
+- **Graceful Degradation** - Frontend works even if backend is unreachable
 
 ---
 
@@ -196,7 +196,7 @@ FRONTEND_URL=http://localhost:5173
 ### Client (`client/.env`)
 
 ```bash
-# Vite proxy handles API routing — no override needed in dev
+# Vite proxy handles API routing - no override needed in dev
 # VITE_API_URL=http://localhost:2000
 ```
 

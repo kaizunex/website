@@ -53,10 +53,10 @@ export default function FutureVision() {
           <p className={styles.quoteText}>
             The most valuable networks aren&rsquo;t built by companies.
             They&rsquo;re built by people who choose to vouch for each other
-            &mdash; and the platform that gets out of their way.
+            , and the platform that gets out of their way.
           </p>
           <p className={styles.quoteAttribution}>
-            &mdash; The Kaizuna Manifesto
+            , The Kaizuna Manifesto
           </p>
         </div>
       </div>

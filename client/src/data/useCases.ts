@@ -37,7 +37,7 @@ export const useCases: UseCase[] = [
     tagColor: 'purple',
     title: 'Financial Access',
     description:
-      'Peer-to-peer financial support, community lending circles, and resource sharing — all powered by trust scores and verified relationships.',
+      'Peer-to-peer financial support, community lending circles, and resource sharing - all powered by trust scores and verified relationships.',
     featured: true,
     personas: [
       {
@@ -51,7 +51,7 @@ export const useCases: UseCase[] = [
           { text: 'Connect with supporters who have verified track records' },
           { text: 'Build financial reputation through successful interactions' },
           { text: 'Get matched with resources based on genuine need, not credit scores' },
-          { text: 'Transparent terms — no hidden fees, no predatory rates' },
+          { text: 'Transparent terms - no hidden fees, no predatory rates' },
         ],
         bulletColor: '#A78BFA',
       },
@@ -93,7 +93,7 @@ export const useCases: UseCase[] = [
     tagColor: 'green',
     title: 'Referrals & Opportunities',
     description:
-      'Job referrals, partnership introductions, and professional opportunities — flowing through authentic relationships instead of cold applications.',
+      'Job referrals, partnership introductions, and professional opportunities - flowing through authentic relationships instead of cold applications.',
     personas: [
       {
         id: 'job-seeker',
@@ -105,7 +105,7 @@ export const useCases: UseCase[] = [
           { text: 'Get referred by people who know your work firsthand' },
           { text: 'Access hidden job market through trusted network pathways' },
           { text: 'Build professional reputation through verified project outcomes' },
-          { text: 'Skip the resume black hole — connections vouch for you' },
+          { text: 'Skip the resume black hole - connections vouch for you' },
           { text: 'Find roles aligned with your actual skills, not keyword matches' },
         ],
         bulletColor: '#34D399',
@@ -148,7 +148,7 @@ export const useCases: UseCase[] = [
     tagColor: 'blue',
     title: 'Life & Business Connections',
     description:
-      'Mentorship, co-founder matching, creative collaborations, and life connections — built on verified trust and shared values.',
+      'Mentorship, co-founder matching, creative collaborations, and life connections - built on verified trust and shared values.',
     personas: [
       {
         id: 'founder',
