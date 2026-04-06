@@ -552,7 +552,7 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
         {...reveal(0.12)}
       >
         <h2 className={styles.flowHeading}>How it works</h2>
-        <div className={styles.flowGrid} style={{ gridTemplateColumns: `repeat(${product.journeySteps.length}, 1fr)` }}>
+        <div className={styles.flowGrid}>
           {product.journeySteps.map((step, index) => (
             <motion.article
               key={step.number}

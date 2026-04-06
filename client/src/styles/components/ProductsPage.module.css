@@ -1,6 +1,7 @@
 .page {
-  padding: 80px 5% 48px;
+  padding: 30px 5% 50px;
   font-family: var(--font-sans);
+  overflow-x: clip;
   background:
     radial-gradient(circle at 12% 8%, rgba(139, 92, 246, 0.1), transparent 42%),
     radial-gradient(circle at 86% 12%, rgba(6, 182, 212, 0.09), transparent 38%),
@@ -254,9 +255,13 @@
 
 .flowGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 220px), 1fr)
+  );
 }
 
 .stepCard {
@@ -265,6 +270,7 @@
   background: color-mix(in srgb, var(--accentTone) 4%, var(--surface-light) 96%);
   padding: 20px;
   position: relative;
+  min-width: 0;
   transition:
     transform var(--duration-base) var(--ease-standard),
     border-color var(--duration-base) var(--ease-standard),
@@ -430,10 +436,6 @@
 }
 
 @media (max-width: 1160px) {
-  .flowGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .stepConnector {
     display: none;
   }
@@ -444,15 +446,11 @@
   .personaGrid {
     grid-template-columns: 1fr;
   }
-
-  .flowGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 680px) {
   .page {
-    padding: 108px 4% 60px;
+    padding: 20px 4% 60px;
   }
 
   .title {
@@ -469,10 +467,6 @@
   .personaCard,
   .stepCard {
     padding: 18px;
-  }
-
-  .flowGrid {
-    grid-template-columns: 1fr;
   }
 
   .stepTitle {

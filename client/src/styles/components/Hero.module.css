@@ -1,11 +1,15 @@
 .hero {
+  /* Establishes the containing block for HeroCanvas + glow layers (was static → CB = viewport → horizontal overflow on tablet/mobile). */
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: clamp(550px, 50vh, 840px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 10px 5%;
-  position: static;
   background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--surface) 76%, var(--bg)) 100%);
 }
 
@@ -20,7 +24,7 @@
   position: absolute;
   top: 8%;
   left: -7%;
-  width: 520px;
+  width: 100%;
   height: 520px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(139, 92, 246, 0.13), transparent 72%);
@@ -74,6 +78,9 @@
   z-index: 10;
   text-align: center;
   max-width: 860px;
+  width: 100%;
+  min-width: 0;
+  padding-inline: 2px;
 }
 
 .badge {
@@ -327,7 +334,26 @@
 @media (max-width: 768px) {
   .hero {
     min-height: clamp(520px, 72vh, 760px);
-    padding: 4px 5% 24px;
+    padding: 4px max(16px, 5%) 24px;
+  }
+
+  /* Keep decorative blobs inside the hero box so they never widen the document. */
+  .glowLeft {
+    left: 0;
+    width: 100%;
+  }
+
+  .glowRight {
+    right: 0;
+    width: min(460px, 85vw);
+  }
+
+  .orbTop {
+    right: 8%;
+  }
+
+  .orbBottom {
+    left: 8%;
   }
 
   .titleBreak {

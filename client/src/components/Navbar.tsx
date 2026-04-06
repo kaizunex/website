@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/components/Navbar.module.css'
-import HeroCanvas from './Hero/HeroCanvas'
-
-const PRODUCT_LINKS = [
-  { label: 'Kaicards', href: '/product/kaicards' },
-  { label: 'Kairef', href: '/product/kairef' },
-  { label: 'Kaitree', href: '/product/kaitree' },
-]
 
 interface NavbarProps {
   isProductPage?: boolean
@@ -81,14 +74,6 @@ export default function Navbar({
           </div>
           <span className={styles.logoText}>Kaizuna</span>
         </a>
-
-        <div className={styles.navLinks}>
-          {!inHome && (
-            <a href={homeHref} className={styles.navLink}>
-              Home
-            </a>
-          )}
-        </div>
 
         <div className={styles.rightActions}>
           <a href={waitlistHref} className={styles.cta}>
