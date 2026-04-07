@@ -1,8 +1,14 @@
 const SPREADSHEET_ID = (__APP_ENV__.GOOGLE_SHEETS_SPREADSHEET_ID || '').trim()
 const WAITLIST_RANGE = (__APP_ENV__.GOOGLE_SHEETS_WAITLIST_RANGE || '').trim()
 const CONTACT_RANGE = (__APP_ENV__.GOOGLE_SHEETS_CONTACT_RANGE || '').trim()
-const SERVICE_ACCOUNT_JSON_PATH = (
-  __APP_ENV__.GOOGLE_SERVICE_ACCOUNT_JSON_PATH || ''
+const SERVICE_ACCOUNT_CLIENT_EMAIL = (
+  __APP_ENV__.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL || ''
+).trim()
+const SERVICE_ACCOUNT_PRIVATE_KEY = (
+  __APP_ENV__.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || ''
+).replace(/\\n/g, '\n')
+const SERVICE_ACCOUNT_TOKEN_URI = (
+  __APP_ENV__.GOOGLE_SERVICE_ACCOUNT_TOKEN_URI || 'https://oauth2.googleapis.com/token'
 ).trim()
 
 type ServiceAccountJson = {
@@ -61,21 +67,15 @@ async function signJwt(payload: Record<string, unknown>, privateKeyPem: string):
 }
 
 async function loadServiceAccount(): Promise<ServiceAccountJson> {
-  if (!SERVICE_ACCOUNT_JSON_PATH) {
-    throw new Error('Missing GOOGLE_SERVICE_ACCOUNT_JSON_PATH.')
-  }
-  const res = await fetch(SERVICE_ACCOUNT_JSON_PATH)
-  if (!res.ok) {
-    throw new Error('Unable to read service account JSON file.')
-  }
-  const json = (await res.json()) as Partial<ServiceAccountJson>
-  if (!json.client_email || !json.private_key) {
-    throw new Error('Service account JSON is missing client_email/private_key.')
+  if (!SERVICE_ACCOUNT_CLIENT_EMAIL || !SERVICE_ACCOUNT_PRIVATE_KEY) {
+    throw new Error(
+      'Missing GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL or GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.',
+    )
   }
   return {
-    client_email: json.client_email,
-    private_key: json.private_key.replace(/\\n/g, '\n'),
-    token_uri: json.token_uri || 'https://oauth2.googleapis.com/token',
+    client_email: SERVICE_ACCOUNT_CLIENT_EMAIL,
+    private_key: SERVICE_ACCOUNT_PRIVATE_KEY,
+    token_uri: SERVICE_ACCOUNT_TOKEN_URI,
   }
 }
 
