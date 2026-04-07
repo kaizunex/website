@@ -19,6 +19,30 @@ type ServiceAccountJson = {
 
 let tokenCache: { accessToken: string; expiresAt: number } | null = null
 
+function normalizeRange(raw: string, envName: string): string {
+  const range = raw.trim()
+  const looksLikePath =
+    range.startsWith('./') ||
+    range.startsWith('../') ||
+    range.includes('\\') ||
+    range.endsWith('.json')
+  if (!range || !range.includes('!') || looksLikePath) {
+    throw new Error(
+      `Invalid ${envName}. Expected A1 range like 'Sheet Name'!A:B, got: ${range || '(empty)'}`,
+    )
+  }
+  return range
+}
+
+const WAITLIST_RANGE_SAFE = normalizeRange(
+  WAITLIST_RANGE,
+  'GOOGLE_SHEETS_WAITLIST_RANGE',
+)
+const CONTACT_RANGE_SAFE = normalizeRange(
+  CONTACT_RANGE,
+  'GOOGLE_SHEETS_CONTACT_RANGE',
+)
+
 function base64UrlEncode(input: Uint8Array): string {
   let binary = ''
   for (let i = 0; i < input.length; i += 1) {
@@ -150,7 +174,7 @@ async function appendValues(range: string, values: string[][]): Promise<void> {
 
 export async function postWaitlist(email: string) {
   const normalizedEmail = email.trim().toLowerCase()
-  await appendValues(WAITLIST_RANGE, [[normalizedEmail, new Date().toISOString()]])
+  await appendValues(WAITLIST_RANGE_SAFE, [[normalizedEmail, new Date().toISOString()]])
   return { success: true, message: "You're on the list!" }
 }
 
@@ -159,7 +183,7 @@ export async function postContact(data: {
   email: string
   message: string
 }) {
-  await appendValues(CONTACT_RANGE, [
+  await appendValues(CONTACT_RANGE_SAFE, [
     [data.name.trim(), data.email.trim().toLowerCase(), data.message.trim(), new Date().toISOString()],
   ])
   return { success: true, message: 'Thank you!' }
