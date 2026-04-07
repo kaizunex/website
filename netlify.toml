@@ -1,5 +1,8 @@
 [build]
-  command = "npm run build"
+  command = """
+  echo "$GOOGLE_SERVICE_ACCOUNT_JSON" > google-service-account.json
+  npm run build
+  """
   publish = "dist"
 
 [dev]
