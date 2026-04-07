@@ -1,6 +1,6 @@
 [build]
   command = """
-  echo "$GOOGLE_SERVICE_ACCOUNT_JSON" > google-service-account.json
+  node -e "const fs=require('fs');const raw=process.env.GOOGLE_SERVICE_ACCOUNT_JSON;if(!raw){throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON is not set')}const parsed=JSON.parse(raw);fs.writeFileSync('google-service-account.json', JSON.stringify(parsed, null, 2)+'\\n')"
   npm run build
   """
   publish = "dist"
