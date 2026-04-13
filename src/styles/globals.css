@@ -134,6 +134,13 @@ body {
   min-width: 0;
   max-width: 100%;
   overflow-x: clip;
+  padding-top: 92px;
+}
+
+@media (max-width: 900px) {
+  #main-content {
+    padding-top: 84px;
+  }
 }
 
 a {

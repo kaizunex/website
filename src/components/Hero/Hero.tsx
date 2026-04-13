@@ -34,8 +34,10 @@ export default function Hero() {
         </h1>
 
         <p className={styles.subtitle}>
-          We use social networks to solve practical utility problems. Whether it's unlocking credit benefits, finding relationships, or
-          finding a job, we accelerate your journey.
+          We use social networks to solve practical utility problems. Whether
+          you&rsquo;re unlocking credit benefits, discovering your roots, or
+          landing a career-defining role, we accelerate your path through the
+          power of community.
         </p>
 
         <div className={styles.actions}>

@@ -84,8 +84,7 @@ export default function ContactForm() {
             Have something <span className={styles.highlight}>in mind?</span>
           </h2>
           <p className={styles.sectionDesc}>
-            Whether it&rsquo;s a partnership, a question, or just to say hello
-            , we&rsquo;d love to hear from you.
+            Have ideas or want to partner? We&rsquo;d love to hear from you.
           </p>
         </div>
 

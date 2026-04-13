@@ -21,9 +21,10 @@ export default function WhyKaizuna() {
               infrastructure for modern community trust.
             </p>
             <p className={styles.quote}>
-              A world where opportunity flows through people. Not through
-              institutions. Not through algorithms. Through the infinite
-              potential of human networks, operating at the speed of trust.
+              Opportunity shouldn&rsquo;t depend on cold algorithms or
+              gatekeepers. Kaizuna builds the infrastructure where value flows
+              through people, making every connection faster, safer, and more
+              meaningful.
             </p>
           </div>
 

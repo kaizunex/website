@@ -62,8 +62,8 @@ export default function WaitlistCTA() {
         </span>
 
         <p className={styles.desc}>
-          Join the waitlist for early access. The future of human connection is
-          being built right now , and it starts with you.
+          Join 1,200+ people already on the waitlist. No spam, just an invite
+          the moment we&rsquo;re ready for you.
         </p>
 
         {!done ? (
