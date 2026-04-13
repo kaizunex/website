@@ -1,6 +1,6 @@
-import { motion, useReducedMotion } from 'framer-motion'
-import { productDetails } from '../../data/ecosystem'
-import { useTrackSection, trackClick } from '../../hooks/useAnalytics'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { productDetails, type ProductBenefit } from '../../data/ecosystem'
 import styles from '../../styles/components/ProductsPage.module.css'
 import flipkart from '../../assets/logos/flipkart.png'
 import myntra from '../../assets/logos/myntra.png'
@@ -31,14 +31,6 @@ const reveal = (delay: number) => ({
   },
 })
 
-const hoverLift = {
-  whileHover: { y: -4 },
-  transition: {
-    duration: 0.2,
-    ease: [0.23, 1, 0.32, 1] as const,
-  },
-}
-
 function ProductIcon({
   icon,
 }: {
@@ -58,9 +50,8 @@ function ProductIcon({
       <img
         src={discountseeker}
         alt="Discount Seeker"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -70,9 +61,8 @@ function ProductIcon({
       <img
         src={cardholder}
         alt="Card Holder"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -82,9 +72,8 @@ function ProductIcon({
       <img
         src={jobseeker}
         alt="Job Seeker"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -94,9 +83,8 @@ function ProductIcon({
       <img
         src={referrer}
         alt="Team Referrer"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -106,9 +94,8 @@ function ProductIcon({
       <img
         src={connector}
         alt="Community Connector"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -118,9 +105,8 @@ function ProductIcon({
       <img
         src={bridge}
         alt="Trust Bridge"
-        style={{
-          borderRadius: '10px'
-        }}
+        className={styles.personaImageIcon}
+        height="63"
       />
     )
   }
@@ -194,33 +180,36 @@ function PlatformIcon({ platform }: { platform: string }) {
 
 function PlatformsSection({ platforms }: { platforms: { name: string; icon: string }[] }) {
   const shouldReduceMotion = useReducedMotion()
-  
+  const marqueePlatforms = [...platforms, ...platforms]
+
   return (
     <motion.section className={styles.platformsSection} {...reveal(0.15)}>
       <h2 className={styles.platformsHeading}>Platforms Supported</h2>
-      <div className={styles.platformsGrid}>
-        {platforms.map((platform, index) => (
-          <motion.div
-            key={platform.name}
-            className={styles.platformCard}
-            {...(shouldReduceMotion
-              ? {}
-              : {
-                  initial: { opacity: 0, y: 20 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.2 },
-                  transition: {
-                    duration: 0.4,
-                    ease: [0.23, 1, 0.32, 1] as const,
-                    delay: index * 0.1,
-                  },
-                })}
-          >
-            <PlatformIcon platform={platform.icon} />
-            <span>{platform.name}</span>
-          </motion.div>
-        ))}
-      </div>
+      {shouldReduceMotion ? (
+        <div className={styles.platformsGrid}>
+          {platforms.map((platform) => (
+            <div key={platform.name} className={styles.platformCard}>
+              <PlatformIcon platform={platform.icon} />
+              <span>{platform.name}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.platformMarqueeViewport}>
+          <div className={styles.platformMarqueeTrack}>
+            {marqueePlatforms.map((platform, index) => (
+              <div
+                key={`${platform.name}-${index}`}
+                className={styles.platformCard}
+                aria-hidden={index >= platforms.length}
+              >
+                <PlatformIcon platform={platform.icon} />
+                <span>{platform.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </motion.section>
   )
 }
@@ -435,15 +424,23 @@ function getBenefitIcon(benefitText: string) {
   )
 }
 
-function BenefitList({ items, dark = false }: { items: string[]; dark?: boolean }) {
+function BenefitList({
+  items,
+  dark = false,
+}: {
+  items: ProductBenefit[]
+  dark?: boolean
+}) {
   return (
     <ul className={styles.benefitList}>
       {items.map((item) => (
-        <li key={item} className={styles.benefitItem}>
+        <li key={item.label} className={styles.benefitItem}>
           <span className={`${styles.benefitIcon} ${dark ? styles.benefitIconDark : ''}`}>
-            {getBenefitIcon(item)}
+            {getBenefitIcon(`${item.label} ${item.text}`)}
           </span>
-          <span>{item}</span>
+          <span>
+            <strong className={styles.benefitLabel}>{item.label}:</strong> {item.text}
+          </span>
         </li>
       ))}
     </ul>
@@ -457,6 +454,8 @@ interface ProductsPageProps {
 export default function ProductsPage({ productId }: ProductsPageProps) {
   const reduceMotion = useReducedMotion()
   const product = productDetails.find((item) => item.id === productId)
+  const [activeRole, setActiveRole] = useState('')
+  const [slideDirection, setSlideDirection] = useState(1)
 
   if (!product) {
     return (
@@ -495,6 +494,25 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
         },
       }
 
+  useEffect(() => {
+    setActiveRole(product.journeyStepsByRole.roles[0])
+  }, [product.id])
+
+  const onRoleChange = (nextRole: string) => {
+    if (nextRole === activeRole) {
+      return
+    }
+
+    const currentIndex = product.journeyStepsByRole.roles.indexOf(activeRole)
+    const nextIndex = product.journeyStepsByRole.roles.indexOf(nextRole)
+    setSlideDirection(nextIndex > currentIndex ? 1 : -1)
+    setActiveRole(nextRole)
+  }
+
+  const activeSteps =
+    product.journeyStepsByRole.steps[activeRole] ??
+    product.journeyStepsByRole.steps[product.journeyStepsByRole.roles[0]]
+
   return (
     <section className={styles.page}>
       <motion.header
@@ -513,7 +531,10 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
               </div>
             </div>
           </div>
-          <p className={styles.subtitle}>{product.statement}</p>
+          <div className={styles.heroCopy}>
+            <p className={styles.oneLiner}>{product.oneLiner}</p>
+            <p className={styles.subtitle}>{product.statement}</p>
+          </div>
         </div>
       </motion.header>
 
@@ -527,7 +548,10 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
             <div className={styles.personaIcon}>
               <ProductIcon icon={product.personas.seeker.icon} />
             </div>
-            <h2 className={styles.personaTitle}>{product.personas.seeker.title}</h2>
+            <div>
+              <h2 className={styles.personaTitle}>{product.personas.seeker.title}</h2>
+              <p className={styles.personaSubtitle}>{product.personas.seeker.subtitle}</p>
+            </div>
           </div>
           <BenefitList items={product.personas.seeker.benefits} />
         </motion.article>
@@ -540,7 +564,10 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
             <div className={`${styles.personaIcon} ${styles.personaIconDark}`}>
               <ProductIcon icon={product.personas.provider.icon} />
             </div>
-            <h2 className={styles.personaTitle}>{product.personas.provider.title}</h2>
+            <div>
+              <h2 className={styles.personaTitle}>{product.personas.provider.title}</h2>
+              <p className={styles.personaSubtitle}>{product.personas.provider.subtitle}</p>
+            </div>
           </div>
           <BenefitList items={product.personas.provider.benefits} dark />
         </motion.article>
@@ -552,36 +579,66 @@ export default function ProductsPage({ productId }: ProductsPageProps) {
         {...reveal(0.12)}
       >
         <h2 className={styles.flowHeading}>How it works</h2>
+        <div className={styles.roleTabs} role="tablist" aria-label="Journey roles">
+          {product.journeyStepsByRole.roles.map((role) => {
+            const isActive = role === activeRole
+
+            return (
+              <button
+                key={role}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => onRoleChange(role)}
+                className={`${styles.roleTab} ${isActive ? styles.roleTabActive : ''}`}
+              >
+                {role}
+              </button>
+            )
+          })}
+        </div>
         <div className={styles.flowGrid}>
-          {product.journeySteps.map((step, index) => (
-            <motion.article
-              key={step.number}
-              className={styles.stepCard}
-              {...(reduceMotion
-                ? {}
-                : {
-                    initial: { opacity: 0, y: 18 },
-                    whileInView: { opacity: 1, y: 0 },
-                    viewport: { once: true, amount: 0.2 },
-                    transition: {
-                      duration: 0.4,
-                      ease: [0.23, 1, 0.32, 1] as const,
-                      delay: index * 0.04,
-                    },
-                    whileHover: {
-                      y: -4,
-                      transition: {
-                        duration: 0.2,
-                        ease: [0.23, 1, 0.32, 1] as const,
-                      },
-                    },
-                  })}
+          <AnimatePresence mode="wait" custom={slideDirection}>
+            <motion.div
+              key={activeRole}
+              className={styles.flowRolePanel}
+              custom={slideDirection}
+              initial={reduceMotion ? { opacity: 1 } : { opacity: 0, x: 18 * slideDirection }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: -18 * slideDirection }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             >
-              <span className={styles.stepNumber}>{step.number}</span>
-              <h3 className={styles.stepTitle}>{step.title}</h3>
-              <p className={styles.stepText}>{step.text}</p>
-            </motion.article>
-          ))}
+              {activeSteps.map((step, index) => (
+                <motion.article
+                  key={`${activeRole}-${step.number}`}
+                  className={styles.stepCard}
+                  {...(reduceMotion
+                    ? {}
+                    : {
+                        initial: { opacity: 0, y: 18 },
+                        whileInView: { opacity: 1, y: 0 },
+                        viewport: { once: true, amount: 0.2 },
+                        transition: {
+                          duration: 0.4,
+                          ease: [0.23, 1, 0.32, 1] as const,
+                          delay: index * 0.06,
+                        },
+                        whileHover: {
+                          y: -4,
+                          transition: {
+                            duration: 0.2,
+                            ease: [0.23, 1, 0.32, 1] as const,
+                          },
+                        },
+                      })}
+                >
+                  <span className={styles.stepNumber}>{step.number}</span>
+                  <h3 className={styles.stepTitle}>{step.title}</h3>
+                  <p className={styles.stepText}>{step.text}</p>
+                </motion.article>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </motion.section>
     </section>

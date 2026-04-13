@@ -88,6 +88,17 @@
   line-height: 1.68;
 }
 
+.heroCopy {
+  display: grid;
+  gap: 10px;
+}
+
+.oneLiner {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.1vw, 1.5rem);
+  color: var(--text-primary);
+}
+
 .factsCard {
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-soft);
@@ -157,13 +168,26 @@
 }
 
 .personaCard {
-  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-  border-radius: var(--radius-xl);
-  padding: 34px;
+  border: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  border-radius: 20px;
+  padding: 36px;
   min-height: 340px;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 12px 28px rgba(15, 23, 42, 0.08);
+  transition:
+    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.personaCard:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accentTone) 42%, var(--border-soft));
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.1),
+    0 26px 52px color-mix(in srgb, var(--accentTone) 18%, transparent);
 }
 
 .personaCardDark {
@@ -180,14 +204,15 @@
 }
 
 .personaIcon {
-  width: 60px;
-  height: 60px;
-  border-radius: 999px;
+  width: 63px;
+  height: 63px;
+  border-radius: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: color-mix(in srgb, var(--accentTone) 10%, var(--surface));
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .personaHeaderDark {
@@ -198,10 +223,27 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+.personaImageIcon {
+  height: 63px;
+  width: 63px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
 .personaTitle {
   font-family: var(--font-heading);
   font-size: clamp(1.35rem, 2.6vw, 1.9rem);
-  margin-bottom: 0;
+  margin-bottom: 4px;
+}
+
+.personaSubtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.personaCardDark .personaSubtitle {
+  color: #c5d7fb;
 }
 
 .benefitList {
@@ -238,6 +280,15 @@
 
 .benefitIconDark svg {
   color: #60a5fa;
+}
+
+.benefitLabel {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.personaCardDark .benefitLabel {
+  color: #f8fbff;
 }
 
 .flowSection {
@@ -304,6 +355,29 @@
   width: 100%;
 }
 
+.platformMarqueeViewport {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    transparent 100%
+  );
+}
+
+.platformMarqueeTrack {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  animation: platformMarquee 30s linear infinite;
+}
+
+.platformMarqueeTrack:hover {
+  animation-play-state: paused;
+}
+
 .platformCard {
   display: flex;
   flex-direction: column;
@@ -316,6 +390,7 @@
   box-shadow: 0 4px 12px color-mix(in srgb, var(--accentTone) 8%, transparent);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  min-width: 180px;
 }
 
 .platformCard:hover {
@@ -349,16 +424,30 @@
   color: var(--text-primary);
 }
 
+@keyframes platformMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 768px) {
   .platformsGrid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 16px;
   }
-  
+
+  .platformMarqueeTrack {
+    gap: 14px;
+  }
+
   .platformCard {
     padding: 20px 12px;
+    min-width: 140px;
   }
-  
+
   .platformIcon {
     width: 40px;
     height: 40px;
@@ -384,6 +473,55 @@
   color: var(--text-secondary);
   line-height: 1.6;
   font-size: 0.8rem;
+}
+
+.roleTabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  flex-wrap: wrap;
+}
+
+.roleTab {
+  border: 1px solid color-mix(in srgb, var(--accentTone) 40%, var(--border-soft));
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  color: var(--text-primary);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    background var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.roleTab:hover {
+  transform: translateY(-2px);
+}
+
+.roleTabActive {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accentTone) 88%, #10203a),
+    color-mix(in srgb, var(--accentTone) 66%, #2f2f46)
+  );
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accentTone) 30%, transparent);
+}
+
+.flowRolePanel {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 220px), 1fr)
+  );
 }
 
 .fallback {
@@ -427,6 +565,10 @@
   --accentTone: #3b82f6;
 }
 
+.cyan {
+  --accentTone: #06b6d4;
+}
+
 .emerald {
   --accentTone: #10b981;
 }
@@ -461,6 +603,10 @@
   .benefitItem,
   .stepText {
     font-size: 0.95rem;
+  }
+
+  .oneLiner {
+    font-size: 1.15rem;
   }
 
   .factsCard,

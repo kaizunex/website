@@ -69,8 +69,8 @@ export default function UseCases() {
         <span className="section-label">Three Pillars</span>
         <h2 className={styles.sectionTitle}>Our Ecosystem</h2>
         <p className={styles.sectionDesc}>
-          We&rsquo;re starting with three pillars designed to solve fundamental
-          daily friction points.
+          We&rsquo;re launching with three utility-first tools designed to fix
+          daily friction.
         </p>
       </div>
 

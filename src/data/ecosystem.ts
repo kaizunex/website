@@ -8,17 +8,15 @@ export interface PillarSummary {
   glow: 'purple' | 'cyan' | 'emerald'
 }
 
-export interface ProductFlowStep {
-  step: number
-  actor: string
-  title: string
-  detail: string
-}
-
 export interface ProductJourneyStep {
   number: string
   title: string
   text: string
+}
+
+export interface ProductJourneyByRole {
+  roles: [string, string]
+  steps: Record<string, ProductJourneyStep[]>
 }
 
 export type ProductIcon = 'credit-card' | 'briefcase' | 'network'
@@ -33,34 +31,30 @@ export type ProductPersonaIcon =
 export interface ProductPersona {
   icon: ProductPersonaIcon
   title: string
-  benefits: string[]
+  subtitle: string
+  benefits: ProductBenefit[]
 }
 
-export interface ProductFastFact {
+export interface ProductBenefit {
   label: string
-  value: string
+  text: string
 }
 
 export interface ProductDetail {
   id: PillarSummary['id']
   name: string
-  heroTitle: string
   heroTag: string
-  accent: 'blue' | 'emerald' | 'purple'
+  accent: 'blue' | 'cyan' | 'emerald' | 'purple'
   icon: ProductIcon
   vertical: string
+  oneLiner: string
   statement: string
-  motivation: string
-  namingMotivation: string
-  highlights: string[]
-  fastFacts: ProductFastFact[]
   personas: {
     seeker: ProductPersona
     provider: ProductPersona
   }
-  journeySteps: ProductJourneyStep[]
+  journeyStepsByRole: ProductJourneyByRole
   platforms?: { name: string; icon: string }[]
-  flow: ProductFlowStep[]
 }
 
 export const nexusStats = [
@@ -75,11 +69,11 @@ export const pillarSummaries: PillarSummary[] = [
     vertical: 'Fintech Vertical',
     bridgeLine:
       'Securely share credit card benefits without sharing card data.',
-    oneLiner: 'Get the discount; give the milestone.',
+    oneLiner: 'Credit perks without sharing card details',
     outcomes: [
-      'Proxy checkout sessions',
+      'Secure checkout sessions',
       'Escrow-backed settlements',
-      'Cardholder milestone completion',
+      'Mutual wins: Seekers save, holders earn',
     ],
     glow: 'purple',
   },
@@ -88,12 +82,12 @@ export const pillarSummaries: PillarSummary[] = [
     name: 'Kairefer',
     vertical: 'HR-Tech Vertical',
     bridgeLine:
-      'A no-broker referral engine for direct internal portal uploads.',
-    oneLiner: 'Bridge the gap to your next career move.',
+      'Get vetted by real people and get referred directly to the right desk with a single click.',
+    oneLiner: 'Referrals that actually reach the right desk',
     outcomes: [
       'Persona-based referral filters',
-      'One-click internal portal upload',
-      'No manual data re-entry',
+      'Single-click job portal uploads',
+      'High-intent referrer network',
     ],
     glow: 'cyan',
   },
@@ -102,8 +96,8 @@ export const pillarSummaries: PillarSummary[] = [
     name: 'Kaitree',
     vertical: 'Community Vertical',
     bridgeLine:
-      'An ancestral graph connecting communities through verified lineage.',
-    oneLiner: 'Find roots, map paths, unlock trust.',
+      'Mapping ancestral memories and roots to unlock generational trust.',
+    oneLiner: 'Map ancestral roots to bridge generations',
     outcomes: [
       'Digitized Vanshavali records',
       'Ancestral path discovery',
@@ -117,325 +111,340 @@ export const productDetails: ProductDetail[] = [
   {
     id: 'kaicards',
     name: 'Kaicards',
-    heroTitle: 'Credit Bridge',
     heroTag: 'Financial Utility',
-    accent: 'blue',
+    accent: 'purple',
     icon: 'credit-card',
     vertical: 'Fintech Vertical',
+    oneLiner: 'Unlock every perk. Hit every milestone.',
     statement:
-      'Kaicards is a first-of-its-kind financial matchmaking engine. Many premium credit cards offer massive discounts (10-50%) on specific platforms, but most people do not own every card. Conversely, cardholders often struggle to hit high annual spending milestones. Kaicards bridges this gap using a secure escrow system.',
-    motivation:
-      'Millions of card discounts go unused while holders still need milestone spend. Existing sharing methods are risky and expose sensitive card data. Kaicards closes this trust gap.',
-    namingMotivation:
-      '"Kai" means bond or connection, and "Cards" reflects financial utility. Kaicards represents a two-sided financial bond where both participants win without compromising security.',
-    highlights: [
-      'No card numbers shared',
-      'No address exposure',
-      'Bridge encrypted end to end',
-    ],
-    fastFacts: [
-      { label: 'Security', value: 'Kaizuna Guard(TM)' },
-      { label: 'Processing', value: 'Real-time' },
-      { label: 'Integration', value: 'API Enabled' },
-    ],
+      'Kaicards connects savvy shoppers with premium cardholders. Most users miss out on deep platform discounts because they lack the right card, while cardholders fall short of annual spend targets. Kaicards platform empowers to access upto 50% savings without owning every card, while helping cardholders reach their goals safely and seamlessly.',
     personas: {
       seeker: {
         icon: 'wallet-user',
         title: 'The Discount Seeker',
+        subtitle: 'Unlock savings without the clutter of extra cards.',
         benefits: [
-          'Access 20%+ discounts without owning 10+ cards',
-          'No credit inquiry or annual fees required',
-          'Kaizuna Escrow protection guarantees your money',
-          'Seamless checkout experience',
+          {
+            label: 'Zero Barrier',
+            text: 'No credit inquiries or annual fees required.',
+          },
+          {
+            label: 'Safe Haven',
+            text: 'Kaizuna Escrow ensures 100% payment protection.',
+          },
+          {
+            label: 'Frictionless',
+            text: 'A fast, seamless checkout experience.',
+          },
+          {
+            label: 'Massive Reach',
+            text: 'Access premium perks from every major bank.',
+          },
         ],
       },
       provider: {
         icon: 'card-holder',
         title: 'The Card Holder',
+        subtitle: 'Smash spending milestones without spending your own capital.',
         benefits: [
-          'Hit high-tier spending milestones faster',
-          "Earn reward points on other people's purchases",
-          'Maintain card active status without personal spending',
-          'Fully compliant and secure data handling',
+          {
+            label: 'Rapid Growth',
+            text: 'Accelerate high-tier milestone rewards.',
+          },
+          {
+            label: 'Point Stacking',
+            text: 'Earn rewards on every third-party purchase.',
+          },
+          {
+            label: 'Active Status',
+            text: 'Maintain card activity with zero personal outgoings.',
+          },
+          {
+            label: 'Total Security',
+            text: 'Bank-grade compliance and secure data handling.',
+          },
         ],
       },
     },
-    journeySteps: [
-      {
-        number: '01',
-        title: 'Discovery',
-        text: 'Seekers browse available card-specific discounts on supported platforms.',
+    journeyStepsByRole: {
+      roles: ['Card User', 'Card Holder'],
+      steps: {
+        'Card User': [
+          {
+            number: '01',
+            title: 'Find the Best Offer',
+            text: 'Browse available card-powered offers across supported partner platforms.',
+          },
+          {
+            number: '02',
+            title: 'Get Matched',
+            text: 'Kaicards matches you with a verified card holder with the eligible card.',
+          },
+          {
+            number: '03',
+            title: 'Lock Escrow',
+            text: 'Deposit the discounted amount into secure Kaizuna Escrow before checkout.',
+          },
+          {
+            number: '04',
+            title: 'Receive & Confirm',
+            text: 'Track completion and confirm delivery or service completion from your dashboard.',
+          },
+        ],
+        'Card Holder': [
+          {
+            number: '01',
+            title: 'Accept the Request',
+            text: 'Review and accept high-fit requests that align with your card perks and spend goals.',
+          },
+          {
+            number: '02',
+            title: 'Run Secure Checkout',
+            text: 'Complete the purchase through a protected proxy flow without exposing sensitive card data.',
+          },
+          {
+            number: '03',
+            title: 'Hit Milestones',
+            text: 'Purchase value gets added toward annual spend targets and reward milestones.',
+          },
+          {
+            number: '04',
+            title: 'Get Settled',
+            text: 'Escrow releases funds after user confirmation, completing a trusted two-sided win.',
+          },
+        ],
       },
-      {
-        number: '02',
-        title: 'Matchmaking',
-        text: 'Our engine matches the Seeker with a verified Holder who has the required card.',
-      },
-      {
-        number: '03',
-        title: 'Escrow Lock',
-        text: 'Seeker deposits funds into a secure Kaizuna escrow account.',
-      },
-      {
-        number: '04',
-        title: 'Execution',
-        text: 'Holder processes the transaction; Seeker receives the product/service.',
-      },
-      {
-        number: '05',
-        title: 'Release',
-        text: 'Upon confirmation, funds are released to the Holder, helping them hit spend milestones.',
-      },
-    ],
+    },
     platforms: [
       { name: 'Flipkart', icon: 'flipkart' },
       { name: 'Myntra', icon: 'myntra' },
       { name: 'Cleartrip', icon: 'cleartrip' },
       { name: 'BookMyShow', icon: 'bookmyshow' },
       { name: 'Ajio', icon: 'ajio' },
-      { name: 'Paytm Travel', icon: 'paytm' }
-    ],
-    flow: [
-      {
-        step: 1,
-        actor: 'User',
-        title: 'Deposit Discounted Amount',
-        detail:
-          'User identifies an offer and deposits the discounted amount into Kaizuna escrow.',
-      },
-      {
-        step: 2,
-        actor: 'Holder',
-        title: 'Accept Discount-Power Request',
-        detail:
-          'Card holder accepts request to lend discount power without exposing card details.',
-      },
-      {
-        step: 3,
-        actor: 'Bridge',
-        title: 'Run Secure Proxy Session',
-        detail:
-          'Encrypted proxy session executes checkout. Card number and delivery address remain protected.',
-      },
-      {
-        step: 4,
-        actor: 'Settlement',
-        title: 'Close Loop for Both Sides',
-        detail:
-          'User receives product. Holder bill gets settled, milestone progresses, and service fee is credited.',
-      },
+      { name: 'Paytm Travel', icon: 'paytm' },
     ],
   },
   {
     id: 'kairefer',
     name: 'Kairefer',
-    heroTitle: 'Referral Gateway',
-    heroTag: 'Professional Growth',
-    accent: 'emerald',
+    heroTag: 'Referral Gateway',
+    accent: 'cyan',
     icon: 'briefcase',
     vertical: 'HR-Tech Vertical',
+    oneLiner: 'Referrals that actually reach the right desk.',
     statement:
-      'Kairefer solves the "Referral Fatigue" experienced by employees at top companies. Instead of manually filtering hundreds of LinkedIn DMs, users place a custom Gateway link in their bio. Candidates must pass a pre-screening bot based on the referrer\'s specific criteria before the request ever hits their inbox.',
-    motivation:
-      'Traditional referral DMs are noisy. Givers are flooded with resumes and seekers disappear into hiring black holes. Kairef automates manual upload friction.',
-    namingMotivation:
-      '"Kai" plus "Refer" simplifies the complex act of vouching into one direct, high-trust action.',
-    highlights: [
-      'High-fit persona matching',
-      'Top-tier match notification',
-      'Workday-like portal auto-fill',
-    ],
-    fastFacts: [
-      { label: 'Security', value: 'Kaizuna Guard(TM)' },
-      { label: 'Processing', value: 'Real-time' },
-      { label: 'Integration', value: 'API Enabled' },
-    ],
+      'Kairefer solves the "Referral Fatigue" experienced by employees at top companies. Instead of manually filtering hundreds of LinkedIn DMs, users place a custom Gateway link in their bio. Our pre-screening bot vets candidates against your specific criteria, ensuring only the best requests ever reach your inbox.',
     personas: {
       seeker: {
         icon: 'job-candidate',
         title: 'The Candidate',
+        subtitle: 'Get discovered by high-intent referrers, not inbox noise.',
         benefits: [
-          'Skip the LinkedIn inbox "black hole"',
-          'Get immediate feedback on if you qualify for a referral',
-          'Direct line to high-intent referrers',
-          'Track referral status in real-time',
+          {
+            label: 'Faster Access',
+            text: 'Skip the LinkedIn inbox black hole and reach active referrers directly.',
+          },
+          {
+            label: 'Instant Fit Check',
+            text: 'Get immediate feedback on whether you qualify before requesting a referral.',
+          },
+          {
+            label: 'Direct Path',
+            text: 'Connect with high-intent professionals already open to referring.',
+          },
+          {
+            label: 'Live Tracking',
+            text: 'Track referral progress and updates in real-time.',
+          },
         ],
       },
       provider: {
         icon: 'team-referrer',
         title: 'The Referrer',
+        subtitle: 'Filter noise and help the right candidates faster.',
         benefits: [
-          'Save hours of manual resume reviewing',
-          'Zero LinkedIn spam-only qualified leads reach you',
-          'Earn company referral bonuses with minimal effort',
-          'Help your team grow with higher-quality hires',
+          {
+            label: 'Time Saver',
+            text: 'Save hours of manual resume review with automated pre-screening.',
+          },
+          {
+            label: 'Quality Inbound',
+            text: 'Only qualified candidates reach your queue, not random LinkedIn spam.',
+          },
+          {
+            label: 'Bonus Friendly',
+            text: 'Stay eligible for referral bonuses with less manual effort.',
+          },
+          {
+            label: 'Better Hiring',
+            text: 'Help your teams hire faster with stronger candidate quality.',
+          },
         ],
       },
     },
-    journeySteps: [
-      {
-        number: '01',
-        title: 'Bot Setup',
-        text: 'Referrer defines "must-have" criteria (experience, skills, location).',
+    journeyStepsByRole: {
+      roles: ['Candidate', 'Referrer'],
+      steps: {
+        Candidate: [
+          {
+            number: '01',
+            title: 'Discover Gateway Link',
+            text: 'Find a referrer gateway link from LinkedIn, X, or professional communities.',
+          },
+          {
+            number: '02',
+            title: 'Complete Screening',
+            text: 'Submit your details and finish a quick role-fit screening flow.',
+          },
+          {
+            number: '03',
+            title: 'Get Qualified Match',
+            text: 'Only high-fit profiles move forward to the right internal referrer.',
+          },
+          {
+            number: '04',
+            title: 'Track Referral',
+            text: 'Follow referral status updates without losing visibility in the process.',
+          },
+        ],
+        Referrer: [
+          {
+            number: '01',
+            title: 'Define Persona',
+            text: 'Set role criteria so only suitable profiles enter your queue.',
+          },
+          {
+            number: '02',
+            title: 'Publish Gateway',
+            text: 'Share your personalized link in public profiles and hiring channels.',
+          },
+          {
+            number: '03',
+            title: 'Review Top Fits',
+            text: 'Receive pre-filtered candidates who pass your threshold.',
+          },
+          {
+            number: '04',
+            title: 'Refer in One Flow',
+            text: 'Upload to internal portals quickly and log referral proof.',
+          },
+        ],
       },
-      {
-        number: '02',
-        title: 'Bio Integration',
-        text: 'Add your unique Gateway link to LinkedIn or Twitter bios.',
-      },
-      {
-        number: '03',
-        title: 'Self-Service Screening',
-        text: 'Candidates complete a 60-second assessment via the link.',
-      },
-      {
-        number: '04',
-        title: 'Auto-Filter',
-        text: 'Only candidates who meet 100% of criteria are presented to the referrer.',
-      },
-    ],
+    },
     platforms: [
       { name: 'LinkedIn', icon: 'linkedin' },
       { name: 'Naukri', icon: 'naukri' },
       { name: 'IIMJobs', icon: 'iimjobs' },
       { name: 'Instahyre', icon: 'instahyre' },
-      { name: 'Workday', icon: 'workday' }
-    ],
-    flow: [
-      {
-        step: 1,
-        actor: 'Giver',
-        title: 'Set Referral Persona',
-        detail:
-          'Giver defines a specific referral persona so only high-fit candidates are surfaced.',
-      },
-      {
-        step: 2,
-        actor: 'Seeker',
-        title: 'Broadcast Resume for Role',
-        detail:
-          'Seeker submits resume and target role to the Kaizuna network distribution layer.',
-      },
-      {
-        step: 3,
-        actor: 'Match',
-        title: 'Filter for Top-Tier Fit',
-        detail:
-          'Matching engine notifies the giver only when role fit and persona quality pass threshold.',
-      },
-      {
-        step: 4,
-        actor: 'Bridge',
-        title: 'Direct Internal Upload',
-        detail:
-          'One click auto-populates seeker profile into the giver internal portal workflow.',
-      },
-      {
-        step: 5,
-        actor: 'Confirmation',
-        title: 'Log Referral with Proof',
-        detail:
-          'Referral is officially logged and giver remains eligible for company referral bonus.',
-      },
+      { name: 'Workday', icon: 'workday' },
     ],
   },
   {
     id: 'kaitree',
     name: 'Kaitree',
-    heroTitle: 'Community Tree',
     heroTag: 'Social Discovery',
-    accent: 'purple',
+    accent: 'emerald',
     icon: 'network',
     vertical: 'Community Vertical',
+    oneLiner: 'Map ancestral roots to bridge generations.',
     statement:
       'Kaitree is a visual representation of the "Six Degrees of Separation" theory, applied practically. Unlike standard social media, the Tree focuses on verified relationships-familial, community-based, and high-trust professional links-to help people find suitable matches for life-defining events like marriage or business partnerships.',
-    motivation:
-      'Globalization has broken continuity in Vanshavali records. Kaitree digitizes the banyan model so ancestral trust can support networking, business, and matrimonial verification.',
-    namingMotivation:
-      '"Kai" plus "Tree" represents rooted ancestry with branching opportunity across generations.',
-    highlights: [
-      'Village and gotra graphing',
-      'Interconnected community forest',
-      'Trust-led path utilization',
-    ],
-    fastFacts: [
-      { label: 'Security', value: 'Kaizuna Guard(TM)' },
-      { label: 'Processing', value: 'Real-time' },
-      { label: 'Integration', value: 'API Enabled' },
-    ],
     personas: {
       seeker: {
         icon: 'community-connector',
         title: 'The Connector',
+        subtitle: 'Discover trusted pathways to people and opportunities.',
         benefits: [
-          'Discover verified paths to high-value individuals',
-          'Reduce "stranger danger" in networking',
-          'Find matrimonial matches within trusted social circles',
-          'Understand community roots and heritage',
+          {
+            label: 'Verified Paths',
+            text: 'Discover high-trust pathways to valuable people and communities.',
+          },
+          {
+            label: 'Safer Networking',
+            text: 'Reduce stranger risk by relying on validated social links.',
+          },
+          {
+            label: 'Trusted Matchmaking',
+            text: 'Find matrimonial or partnership matches within verified circles.',
+          },
+          {
+            label: 'Cultural Continuity',
+            text: 'Preserve and understand your roots and ancestral heritage.',
+          },
         ],
       },
       provider: {
         icon: 'trust-bridge',
         title: 'The Bridge',
+        subtitle: 'Become a trusted node that strengthens collective trust.',
         benefits: [
-          'Strengthen community ties by acting as a trusted link',
-          'Control who can see your connections',
-          'Earn "Trust Points" for successful introductions',
-          'Help family and friends find life-changing opportunities',
+          {
+            label: 'Community Strength',
+            text: 'Strengthen social fabric by acting as a trusted connection point.',
+          },
+          {
+            label: 'Privacy Control',
+            text: 'Choose visibility and control who can access your network.',
+          },
+          {
+            label: 'Trust Credits',
+            text: 'Earn recognition for successful and meaningful introductions.',
+          },
+          {
+            label: 'Impact Multiplier',
+            text: 'Help friends and families unlock life-changing opportunities.',
+          },
         ],
       },
     },
-    journeySteps: [
-      {
-        number: '01',
-        title: 'Node Creation',
-        text: 'Users map their immediate trusted circle (family, close peers).',
+    journeyStepsByRole: {
+      roles: ['Connector', 'Bridge'],
+      steps: {
+        Connector: [
+          {
+            number: '01',
+            title: 'Set Your Roots',
+            text: 'Add ancestry, village, and lineage context to establish identity anchors.',
+          },
+          {
+            number: '02',
+            title: 'Verify Connections',
+            text: 'Mutually validate links with trusted people in your immediate graph.',
+          },
+          {
+            number: '03',
+            title: 'Find a Path',
+            text: 'Search for a target person and discover real human bridges to reach them.',
+          },
+          {
+            number: '04',
+            title: 'Request a Vouch',
+            text: 'Ask intermediaries for digital vouching to build confidence quickly.',
+          },
+        ],
+        Bridge: [
+          {
+            number: '01',
+            title: 'Maintain Trusted Links',
+            text: 'Keep your connection graph accurate and actively verified.',
+          },
+          {
+            number: '02',
+            title: 'Control Visibility',
+            text: 'Decide how much of your network is visible for discovery and introductions.',
+          },
+          {
+            number: '03',
+            title: 'Enable Introductions',
+            text: 'Support relevant connections for networking, business, or matrimony.',
+          },
+          {
+            number: '04',
+            title: 'Build Community Trust',
+            text: 'Strengthen shared trust capital through successful, meaningful connections.',
+          },
+        ],
       },
-      {
-        number: '02',
-        title: 'Verification',
-        text: "Nodes must mutually verify connections to ensure the tree's integrity.",
-      },
-      {
-        number: '03',
-        title: 'Path Discovery',
-        text: 'Search for a target profile to see the exact chain of humans linking you.',
-      },
-      {
-        number: '04',
-        title: 'Vouching',
-        text: 'Request a digital "vouch" from intermediaries to build instant trust.',
-      },
-    ],
-    flow: [
-      {
-        step: 1,
-        actor: 'Rooting',
-        title: 'Input Ancestral Identity',
-        detail:
-          'User enters ancestral village, lineage/gotra, and historical family context.',
-      },
-      {
-        step: 2,
-        actor: 'Graph',
-        title: 'Build Community Forest',
-        detail:
-          'System connects individual family trees into a wider, validated community graph.',
-      },
-      {
-        step: 3,
-        actor: 'Path Discovery',
-        title: 'Compute Ancestral Path',
-        detail:
-          'Users discover lineage paths between themselves and any other verified community member.',
-      },
-      {
-        step: 4,
-        actor: 'Utilization',
-        title: 'Activate Verified Roots',
-        detail:
-          'Community members use verified lineage for high-trust networking, startup support, and matrimonial checks.',
-      },
-    ],
+    },
   },
 ]
