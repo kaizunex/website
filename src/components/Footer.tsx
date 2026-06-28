@@ -9,16 +9,16 @@ const PRODUCT_LINKS = [
 
 const COMPANY_LINKS = [
   { label: "Home", href: "/#hero" },
+  { label: "About Us", href: "/about" },
   { label: "Why Kaizuna", href: "/#why-kaizuna" },
   { label: "Our Ecosystem", href: "/#use-cases" },
   { label: "Get in touch", href: "/#contact" },
 ];
 
 const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms of Service", href: "#" },
-  { label: "Cookie Policy", href: "#" },
-  { label: "Contact", href: "#" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Contact", href: "mailto:kaizunanexus@gmail.com" },
 ];
 
 function LogoMark() {
@@ -69,10 +69,10 @@ function LogoMark() {
 }
 
 interface FooterProps {
-  isProductPage?: boolean;
+  isHome?: boolean;
 }
 
-export default function Footer({ isProductPage = false }: FooterProps) {
+export default function Footer({ isHome = true }: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
@@ -85,9 +85,9 @@ export default function Footer({ isProductPage = false }: FooterProps) {
           </a>
           <p>Solve problems through human connections.</p>
           <p>
-            {isProductPage
-              ? "Exploring deep dives for Kaicards, Kairef, and Kaitree."
-              : "Kaizuna builds direct, high-trust pathways without middlemen."}
+            {isHome
+              ? "Kaizuna builds direct, high-trust pathways without middlemen."
+              : "Exploring the Kaizuna ecosystem — Kaicards, Kairefer, and Kaitree."}
           </p>
         </div>
 
