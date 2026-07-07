@@ -8,7 +8,9 @@ import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 import Toast from './components/Toast'
 import ProductsPage from './components/ProductsPage/ProductsPage'
+import InfoPage from './components/InfoPage/InfoPage'
 import { productDetails } from './data/ecosystem'
+import { infoPages, type InfoSlug } from './data/legal'
 
 function getProductIdFromPath(pathname: string) {
   const match = pathname.match(/^\/product\/([a-z0-9-]+)$/)
@@ -17,6 +19,17 @@ function getProductIdFromPath(pathname: string) {
   const productId = match[1]
   const isValid = productDetails.some((product) => product.id === productId)
   return isValid ? productId : null
+}
+
+const INFO_ROUTES: Record<string, InfoSlug> = {
+  '/about': 'about',
+  '/privacy': 'privacy',
+  '/terms': 'terms',
+}
+
+function getInfoSlugFromPath(pathname: string): InfoSlug | null {
+  const slug = INFO_ROUTES[pathname.replace(/\/$/, '') || '/']
+  return slug && infoPages[slug] ? slug : null
 }
 
 type ThemeMode = 'light' | 'dark'
@@ -50,7 +63,10 @@ function HomePage() {
 function App() {
   const { pathname } = window.location
   const productId = getProductIdFromPath(pathname)
+  const infoSlug = getInfoSlugFromPath(pathname)
   const isProductPage = Boolean(productId)
+  const isInfoPage = Boolean(infoSlug)
+  const isHome = !isProductPage && !isInfoPage
   const [theme, setTheme] = useState<ThemeMode>(getInitialTheme)
 
   useEffect(() => {
@@ -106,13 +122,17 @@ function App() {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <Navbar
-        isProductPage={isProductPage}
-      />
+      <Navbar isHome={isHome} />
       <main id="main-content">
-        {isProductPage ? <ProductsPage productId={productId} /> : <HomePage />}
+        {isInfoPage ? (
+          <InfoPage slug={infoSlug!} />
+        ) : isProductPage ? (
+          <ProductsPage productId={productId} />
+        ) : (
+          <HomePage />
+        )}
       </main>
-      <Footer isProductPage={isProductPage} />
+      <Footer isHome={isHome} />
       <Toast />
     </>
   )

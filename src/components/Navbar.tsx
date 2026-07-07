@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/components/Navbar.module.css'
 
 interface NavbarProps {
-  isProductPage?: boolean
+  isHome?: boolean
 }
 
 export default function Navbar({
-  isProductPage = false,
+  isHome = true,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [productsOpen, setProductsOpen] = useState(false)
   const productsMenuRef = useRef<HTMLDivElement | null>(null)
 
-  const inHome = !isProductPage
+  const inHome = isHome
   const homeHref = inHome ? '#hero' : '/#hero'
   const whyHref = inHome ? '#why-kaizuna' : '/#why-kaizuna'
   const ecosystemHref = inHome ? '#use-cases' : '/#use-cases'
@@ -101,6 +101,15 @@ export default function Navbar({
         >
           <a href={homeHref} className={styles.mobileNavLink} onClick={closeMobile}>
             Home
+          </a>
+          <a href="/about" className={styles.mobileNavLink} onClick={closeMobile}>
+            About Us
+          </a>
+          <a href="/privacy" className={styles.mobileNavLink} onClick={closeMobile}>
+            Privacy Policy
+          </a>
+          <a href="/terms" className={styles.mobileNavLink} onClick={closeMobile}>
+            Terms &amp; Conditions
           </a>
           <a href={waitlistHref} className={styles.mobileCta} onClick={closeMobile}>
             Join Waitlist
